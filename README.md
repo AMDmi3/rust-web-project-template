@@ -71,6 +71,35 @@ services like [Repology](https://github.com/repology/repology-rs).
 
 This code requires latest Rust-nightly.
 
+## Running
+
+0. You can rename the project (fixin all occurrances of placeholder name
+   in paths and the code) by calling
+
+   ```
+   ./rename.sh <target name>
+   ```
+
+1. Prepare a database
+
+   ```
+   psql --username postgres -c "CREATE DATABASE foobar"
+   psql --username postgres -c "CREATE USER foobar WITH PASSWORD 'foobar'"
+   psql --username postgres -c "GRANT ALL ON DATABASE foobar TO foobar"
+   ```
+
+2. Run the daemon
+
+   ```
+   cargo run --bin foobar-daemon -- --dsn postgresql://foobar:foobar@localhost/foobar
+   ```
+
+3. Run the webapp
+
+   ```
+   cargo run --bin foobar-web -- --dsn postgresql://foobar:foobar@localhost/foobar --listen 127.0.0.1:3000
+   ```
+
 ## Author
 
 - [Dmitry Marakasov](https://github.com/AMDmi3) <amdmi3@amdmi3.ru>
