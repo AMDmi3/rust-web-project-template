@@ -1,0 +1,28 @@
+{% extends "_base.html" %}
+{% block title %}Items - Foobar{% endblock %}
+{% block header %}Items{% endblock %}
+{% block content %}
+
+<table>
+	<thead>
+		<tr>
+			<th class="is-center">ID</th>
+			<th class="is-center">Text</th>
+			<th class="is-center">Time</th>
+		</tr>
+	</thead>
+	<tbody>
+		{%- for item in items %}
+		<tr>
+			<td class="is-center">{{ item.id }}</td>
+			<td class="is-center">{{ item.text }}</td>
+			<td class="is-center">
+				<span class="hide-on-mobile">{{ item.time.format("%Y-%m-%d") }}</span>
+				{{ item.time.format("%H:%M:%S") }}
+			</td>
+		</tr>
+		{%- endfor %}
+	</tbody>
+</table>
+
+{% endblock content %}

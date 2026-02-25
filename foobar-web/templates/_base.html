@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}{% endblock %} - Foobar</title>
+	<link rel="stylesheet" href="{{ ctx.url_for_static("amdmi3.css")? }}">
+</head>
+<body>
+
+<header class="header"><div class="container">
+<nav class="navbar">
+	<div class="navbar-brand">
+		<strong>Foobar Demo</strong>
+	</div>
+	<ul class="navbar-menu">
+		{%- macro navbar_link(name, endpoint) -%}
+		{%- if ctx.is_endpoint(*endpoint) -%}
+		<li class="navbar-item is-active"><a href="{{ ctx.url_for(*endpoint, [])? }}" aria-current="true">{{ name }}</a></li>
+		{%- else -%}
+		<li class="navbar-item"><a href="{{ ctx.url_for(*endpoint, [])? }}">{{ name }}</a></li>
+		{%- endif -%}
+		{%- endmacro %}
+		{{ navbar_link("Items", crate::endpoints::Endpoint::Index) }}
+		{{ navbar_link("About", crate::endpoints::Endpoint::About) }}
+	</ul>
+</nav>
+</div></header>
+
+<main class="main"><div class="container">
+
+<h1>{% block header %}{% endblock %}</h1>
+{% block content %}{% endblock %}
+</div></main>
+
+<footer class="footer"><div class="container">
+<div class="columns is-auto-width">
+	<div class="column">
+		Copyright (C) Dmitry Marakasov
+	</div>
+	<div class="column is-center">
+		Code licensed under GPLv3+
+	</div>
+	<div class="column is-right">
+		<a href="#">GitHub repository</a>
+	</div>
+</div>
+</div></footer>
+
+</body>
+</html>
