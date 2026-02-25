@@ -1,0 +1,71 @@
+name: CI
+on:
+  push:
+  pull_request:
+  schedule:
+    - cron: "0 0 * * 1"
+jobs:
+  test:
+    env:
+      POSTGRESQL: 16
+      TARGET_PROJECT_NAME: quux
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-02-15
+          components: rustfmt,llvm-tools-preview,clippy
+      - uses: taiki-e/install-action@cargo-hack
+      - name: Set up the database
+        run: |
+          curl -s https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
+          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main $POSTGRESQL" > /etc/apt/sources.list.d/pgdg.list'
+          sudo apt update
+          sudo apt install postgresql-$POSTGRESQL
+          sudo sh -c "(echo 'local all all trust'; echo 'host all all samehost trust') > /etc/postgresql/$POSTGRESQL/main/pg_hba.conf"
+          sudo pg_ctlcluster $POSTGRESQL main restart
+      - name: Init the database
+        run: |
+          psql --username postgres -c "CREATE DATABASE $TARGET_PROJECT_NAME"
+          psql --username postgres -c "CREATE USER $TARGET_PROJECT_NAME WITH PASSWORD '$TARGET_PROJECT_NAME'"
+          psql --username postgres -c "GRANT ALL ON DATABASE $TARGET_PROJECT_NAME TO $TARGET_PROJECT_NAME"
+      - name: Save rust version for proper cache setup
+        run: rustc -V > .rustc.version
+      - uses: actions/cache@v5
+        with:
+          path: |
+            ~/.cargo/bin/
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: cargo-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: cargo-
+      - uses: actions/cache@v5
+        with:
+          path: |
+            target/
+          key: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-${{ hashFiles('**/Cargo.lock') }}
+          restore-keys: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-
+      - name: Run rename script
+        run: ./rename.sh $TARGET_PROJECT_NAME
+      - name: Format check
+        run: cargo fmt --check
+      - name: Clippy check
+        run: cargo clippy --all-targets
+      - name: Build
+        run: |
+          cargo build
+          cargo hack --workspace build
+      - name: Test
+        run: cargo test
+        env:
+          DATABASE_URL: postgres://postgres@localhost:5432/
+      - name: Run the daemon
+        run: |
+          timeout 10s cargo run --bin $TARGET_PROJECT_NAME-daemon -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME || err=$?
+          if [ $err -eq 124 ]; then exit 0; else exit $err; fi  # timeout is OK
+      - name: Run the webapp
+        run: |
+          timeout 10s cargo run --bin $TARGET_PROJECT_NAME-web -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME --listen 127.0.0.1:3000 || err=$?
+          if [ $err -eq 124 ]; then exit 0; else exit $err; fi  # timeout is OK
