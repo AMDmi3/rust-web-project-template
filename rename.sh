@@ -9,12 +9,6 @@ if [ "$#" -lt 1 ]; then
 	exit 1
 fi
 
-if pwd | grep -q rust-web-project-template; then
-	echo "Clone into directory different than 'rust-web-project-template' before renaming," 1>&2
-	echo "otherwise it's likely that you're corrupting template repository." 1>&2
-	exit 1
-fi
-
 if sed , </dev/null 2>&1 | grep -q 'invalid command code'; then
 	sed=bsd
 elif sed , </dev/null 2>&1 | grep -q 'unknown command'; then
@@ -27,16 +21,24 @@ fi
 placeholder_name="foobar"
 target_name="$1"
 
-echo "This command will re-init git repository in this directory (removing all git history)" 1>&2
-echo "and rename all '$placeholder_name' instances (in file names or the code) to '$target_name'" 1>&2
-echo -n "Is this OK [y/n]? " 1>&2
-read answer
-if [ "$answer" != 'y' -a "$answer" != 'Y' ]; then
-	echo "Rename cancelled" 1>&2
-	exit 1
-fi
+if [ -z "$GITHUB_ACTIONS" ]; then
+	if pwd | grep -q rust-web-project-template; then
+		echo "Clone into directory different than 'rust-web-project-template' before renaming," 1>&2
+		echo "otherwise it's likely that you're corrupting template repository." 1>&2
+		exit 1
+	fi
 
-echo "Rename confirmed" 1>&2
+	echo "This command will re-init git repository in this directory (removing all git history)" 1>&2
+	echo "and rename all '$placeholder_name' instances (in file names or the code) to '$target_name'" 1>&2
+	echo -n "Is this OK [y/n]? " 1>&2
+	read answer
+	if [ "$answer" != 'y' -a "$answer" != 'Y' ]; then
+		echo "Rename cancelled" 1>&2
+		exit 1
+	fi
+
+	echo "Rename confirmed" 1>&2
+fi
 
 rm -rf .git
 rm rename.sh
