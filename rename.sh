@@ -47,9 +47,9 @@ done
 
 find . -type f | while read path; do
 	if [ $sed = bsd ]; then
-		sed -i '' -e "s|$placeholder_name|$target_name|" "$path"
+		sed -i '' -e "s|$placeholder_name|$target_name|g" "$path"
 	else
-		sed -i -e "s|$placeholder_name|$target_name|" "$path"
+		sed -i -e "s|$placeholder_name|$target_name|g" "$path"
 	fi
 done
 
