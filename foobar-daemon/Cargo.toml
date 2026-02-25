@@ -1,0 +1,25 @@
+[package]
+name = "foobar-daemon"
+version = "0.1.0"
+edition = "2024"
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = "1.0.101"
+clap = { version = "4.5.59", features = ["derive"] }
+foobar-common = { path = "../foobar-common" }
+indoc = "2.0.7"
+metrics = "0.24.3"
+metrics-exporter-prometheus = { version = "0.18.1", features = ["http-listener"] }
+metrics-process = { version = "2.4.3", features = ["use-gauge-on-cpu-seconds-total"] }
+serde = { version = "1.0.228", features = ["derive"] }
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono"] }
+tokio = { version = "1.49.0", features = ["macros", "rt-multi-thread"] }
+toml = { version = "1.0.2", features = ["std", "serde", "parse"] }
+tracing = "0.1.44"
+tracing-appender = "0.2.4"
+tracing-loki = { version = "0.2.6", features = ["compat-0-2-1"] }
+tracing-subscriber = { version = "0.3.22", features = ["chrono", "env-filter"] }
+url = { version = "2.5.8", features = ["serde"] }

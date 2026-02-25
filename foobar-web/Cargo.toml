@@ -1,0 +1,37 @@
+[package]
+name = "foobar-web"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+anyhow = "1.0.101"
+askama = "0.15.4"
+axum = { git = "https://github.com/AMDmi3/axum.git", branch = "dm/matchit-8-6", features = ["macros"] }
+chrono = { version = "0.4.44", default-features = false, features = ["std", "now"] }
+cityhasher = "0.1.0"
+clap = { version = "4.5.59", features = ["derive"] }
+flate2 = "1.1.9"
+include_dir = { version = "0.7.4", features = ["glob"] }
+indexmap = "2.13.0"
+indoc = "2.0.7"
+metrics = "0.24.3"
+metrics-exporter-prometheus = { version = "0.18.1", default-features = false, features = ["http-listener"] }
+metrics-process = { version = "2.4.3", features = ["use-gauge-on-cpu-seconds-total"] }
+mime = "0.3.17"
+serde = { version = "1.0.228", features = ["derive"] }
+sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono"] }
+strum = { version = "0.27.2", features = ["strum_macros", "derive"] }
+strum_macros = "0.27.2"
+tokio = { version = "1.49.0", features = ["macros", "rt-multi-thread"] }
+toml = { version = "1.0.2", default-features = false, features = ["std", "serde", "parse"] }
+tower-cookies = "0.11.0"
+tracing = "0.1.44"
+tracing-appender = "0.2.4"
+tracing-loki = { version = "0.2.6", default-features = false, features = ["compat-0-2-1"] }
+tracing-subscriber = { version = "0.3.22", features = ["chrono", "env-filter"] }
+url = { version = "2.5.8", features = ["serde"] }
+url-escape = "0.1.1"
