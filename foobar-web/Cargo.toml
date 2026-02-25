@@ -24,7 +24,7 @@ metrics-process = { version = "2.4.3", features = ["use-gauge-on-cpu-seconds-tot
 mime = "0.3.17"
 serde = { version = "1.0.228", features = ["derive"] }
 sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono"] }
-strum = { version = "0.27.2", features = ["strum_macros", "derive"] }
+strum = { version = "0.28.0", features = ["strum_macros", "derive"] }
 strum_macros = "0.27.2"
 tokio = { version = "1.49.0", features = ["macros", "rt-multi-thread"] }
 toml = { version = "1.0.2", default-features = false, features = ["std", "serde", "parse"] }
