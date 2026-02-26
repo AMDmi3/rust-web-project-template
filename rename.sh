@@ -54,7 +54,3 @@ find . -type f | while read path; do
 		sed -i -e "s|$placeholder_name|$target_name|g" "$path"
 	fi
 done
-
-git init
-git add .
-git commit -m "Init from rust-web-project-template"
