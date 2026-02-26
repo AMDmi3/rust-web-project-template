@@ -30,6 +30,7 @@ services like [Repology](https://github.com/repology/repology-rs).
     is required for compilation.
   - Migrations support. Migration are available from the common module,
     and can be used from both the daemon and webapp (and tests also).
+  - All applications set PostgreSQL `application_name`
 
 ### Daemon
 
