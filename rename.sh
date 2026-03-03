@@ -49,8 +49,8 @@ done
 
 find . -type f | while read path; do
 	if [ $sed = bsd ]; then
-		sed -i '' -e "s|$placeholder_name|$target_name|g" "$path"
+		sed -i '' -e "s|$placeholder_name|$target_name|g; s|\$TARGET_PROJECT_NAME|$target_name|g; /removed by rename.sh/ d" "$path"
 	else
-		sed -i -e "s|$placeholder_name|$target_name|g" "$path"
+		sed -i -e "s|$placeholder_name|$target_name|g; s|\$TARGET_PROJECT_NAME|$target_name|g; /removed by rename.sh/ d" "$path"
 	fi
 done

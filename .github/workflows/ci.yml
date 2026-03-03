@@ -47,8 +47,8 @@ jobs:
             target/
           key: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-${{ hashFiles('**/Cargo.lock') }}
           restore-keys: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-
-      - name: Run rename script
-        run: ./rename.sh $TARGET_PROJECT_NAME
+      - name: Run rename script               # removed by rename.sh
+        run: ./rename.sh $TARGET_PROJECT_NAME # removed by rename.sh
       - name: Format check
         run: cargo fmt --check
       - name: Clippy check
