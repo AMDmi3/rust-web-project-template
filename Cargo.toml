@@ -9,5 +9,5 @@ rust-version = "1.95"
 [workspace.lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(coverage)'] }
 
-[workspace.lints.clippy]
-#insta.opt-level = 3
+[profile.dev.package]
+insta.opt-level = 3

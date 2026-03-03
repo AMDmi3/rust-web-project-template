@@ -1,0 +1,12 @@
+---
+source: foobar-web/tests/snapshot_tests/index.rs
+expression: snapshot
+---
+(
+    200,
+    {
+        "content-type": "text/html",
+        "content-length": "1555",
+    },
+    b"<!DOCTYPE html>\n<html lang=\"en\">\n<head>\n\t<meta charset=\"utf-8\">\n\t<meta name=\"viewport\" content=\"width=device-width, initial-scale=1\">\n\t<title>Items - Foobar - Foobar</title>\n\t<link rel=\"stylesheet\" href=\"/static/amdmi3.bd721d12c3045efc.css\">\n</head>\n<body>\n\n<header class=\"header\"><div class=\"container\">\n<nav class=\"navbar\">\n\t<div class=\"navbar-brand\">\n\t\t<strong>Foobar Demo</strong>\n\t</div>\n\t<ul class=\"navbar-menu\">\n\t\t<li class=\"navbar-item is-active\"><a href=\"/\" aria-current=\"true\">Items</a></li>\n\t\t<li class=\"navbar-item\"><a href=\"/about\">About</a></li>\n\t</ul>\n</nav>\n</div></header>\n\n<main class=\"main\"><div class=\"container\">\n\n<h1>Items</h1>\n\n\n<table>\n\t<thead>\n\t\t<tr>\n\t\t\t<th class=\"is-center\">ID</th>\n\t\t\t<th class=\"is-center\">Text</th>\n\t\t\t<th class=\"is-center\">Time</th>\n\t\t</tr>\n\t</thead>\n\t<tbody>\n\t\t<tr>\n\t\t\t<td class=\"is-center\">1</td>\n\t\t\t<td class=\"is-center\">Sample item foo</td>\n\t\t\t<td class=\"is-center\">\n\t\t\t\t<span class=\"hide-on-mobile\">1970-01-01</span>\n\t\t\t\t00:00:00\n\t\t\t</td>\n\t\t</tr>\n\t\t<tr>\n\t\t\t<td class=\"is-center\">2</td>\n\t\t\t<td class=\"is-center\">Sample item bar</td>\n\t\t\t<td class=\"is-center\">\n\t\t\t\t<span class=\"hide-on-mobile\">1970-01-01</span>\n\t\t\t\t00:00:00\n\t\t\t</td>\n\t\t</tr>\n\t</tbody>\n</table>\n\n\n</div></main>\n\n<footer class=\"footer\"><div class=\"container\">\n<div class=\"columns is-auto-width\">\n\t<div class=\"column\">\n\t\tCopyright (C) Dmitry Marakasov\n\t</div>\n\t<div class=\"column is-center\">\n\t\tCode licensed under GPLv3+\n\t</div>\n\t<div class=\"column is-right\">\n\t\t<a href=\"#\">GitHub repository</a>\n\t</div>\n</div>\n</div></footer>\n\n</body>\n</html>",
+)
