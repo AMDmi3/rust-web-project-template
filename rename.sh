@@ -21,7 +21,7 @@ fi
 placeholder_name="foobar"
 target_name="$1"
 
-if [ -z "$GITHUB_ACTIONS" ]; then
+if [ -z "${GITHUB_ACTIONS:-}" ]; then
 	if pwd | grep -q rust-web-project-template; then
 		echo "Clone into directory different than 'rust-web-project-template' before renaming," 1>&2
 		echo "otherwise it's likely that you're corrupting template repository." 1>&2
