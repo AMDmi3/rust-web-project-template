@@ -31,6 +31,7 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Migrations support. Migration are available from the common module,
     and can be used from both the daemon and webapp (and tests also).
   - All applications set PostgreSQL `application_name`
+- Unit tests are excluded from coverage for more correct metrics.
 
 ### Daemon
 
@@ -64,6 +65,7 @@ services like [Repology](https://github.com/repology/repology-rs).
 - Extensive integration tests support.
   - Migrations and fixtures support from `sqlx`.
   - Webapp may be constructed as an object and used in the tests.
+  - HTML validation in tests with `tidier`.
   - Additionally to regular tests which check given invariants, `insta` based
     snapshot tests are supported, which compare complete webapp output
     to previously stored state. 
