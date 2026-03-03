@@ -83,7 +83,7 @@ pub fn static_file_generic(file_name: &str, headers: HeaderMap) -> EndpointResul
     })
 }
 
-#[cfg_attr(not(feature = "coverage"), tracing::instrument)]
+#[cfg_attr(not(coverage), tracing::instrument)]
 pub async fn static_file(Path(file_name): Path<String>, headers: HeaderMap) -> EndpointResult {
     static_file_generic(&file_name, headers)
 }

@@ -31,7 +31,7 @@ struct TemplateParams<'a> {
     items: &'a [Item],
 }
 
-#[cfg_attr(not(feature = "coverage"), tracing::instrument(skip_all))]
+#[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn index(State(state): State<Arc<AppState>>) -> EndpointResult {
     let ctx = TemplateContext::new_without_params(Endpoint::Index);
 

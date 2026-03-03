@@ -78,10 +78,7 @@ async fn track_metrics(matched_path: MatchedPath, req: Request, next: Next) -> i
     response
 }
 
-#[cfg_attr(
-    not(feature = "coverage"),
-    tracing::instrument(name = "app init", skip_all)
-)]
+#[cfg_attr(not(coverage), tracing::instrument(name = "app init", skip_all))]
 pub async fn create_app(pool: PgPool) -> anyhow::Result<Router> {
     let state = Arc::new(AppState::new(pool.clone()));
 
