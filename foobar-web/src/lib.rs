@@ -1,14 +1,8 @@
 // SPDX-FileCopyrightText: Copyright 2024 Dmitry Marakasov <amdmi3@amdmi3.ru>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#![feature(iterator_try_collect)]
 #![feature(coverage_attribute)]
 #![feature(stmt_expr_attributes)]
-#![feature(duration_constructors)]
-#![feature(lock_value_accessors)]
-#![feature(iter_collect_into)]
-#![feature(default_field_values)]
-#![allow(clippy::module_inception)]
 
 pub mod config;
 mod endpoints;
