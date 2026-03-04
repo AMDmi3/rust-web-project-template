@@ -1,17 +1,17 @@
 ---
-source: foobar-web/tests/snapshot_tests/index.rs
-expression: "server.get(\"/\").await"
+source: foobar-web/tests/snapshot_tests/about.rs
+expression: "server.get(\"/about\").await"
 ---
 HTTP/1.1 200 OK
 content-type: text/html
-content-length: 1301
+content-length: 1208
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Items - foobar</title>
+	<title>About - foobar</title>
 	<link rel="stylesheet" href="/static/amdmi3.min.f3478182ea6d23a3.css">
 </head>
 <body>
@@ -22,28 +22,18 @@ content-length: 1301
 		<strong>Foobar Demo</strong>
 	</div>
 	<ul class="navbar-menu">
-		<li class="navbar-item is-active"><a href="/" aria-current="true">Items</a></li>
-		<li class="navbar-item"><a href="/about">About</a></li>
+		<li class="navbar-item"><a href="/">Items</a></li>
+		<li class="navbar-item is-active"><a href="/about" aria-current="true">About</a></li>
 	</ul>
 </nav>
 </div></header>
 
 <main class="main"><div class="container">
 
-<h1>Items</h1>
+<h1>About</h1>
 
 
-<table>
-	<thead>
-		<tr>
-			<th class="is-center">ID</th>
-			<th class="is-center">Text</th>
-			<th class="is-center">Time</th>
-		</tr>
-	</thead>
-	<tbody>
-	</tbody>
-</table>
+<p>This is an example about page. Look for docs in the projects' repository</p>
 
 
 </div></main>

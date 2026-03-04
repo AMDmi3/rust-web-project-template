@@ -60,10 +60,11 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Endpoints can also be grouped into sections for use in website navigation.
 - Includes middleware for tracking response codes, sizes, and latency for each endpoint.
 - Extensive integration tests support.
+  - Concise HTTP endpoint tests with [axum-test](https://crates.io/crates/axum-test).
   - Migrations and fixtures support from [sqlx](https://crates.io/crates/sqlx).
   - Webapp may be constructed as an object and used in the tests.
   - HTML validation in tests with [tidier](https://crates.io/crates/tidier).
-  - Additionally to regular tests which check given invariants, [insta](https://crates.io/crates/insta) based snapshot tests are supported, which compare complete webapp output to previously stored state (Note: `profile.dev.package.insta.opt-level = 3` recommented setting is deliberately omitted, as it doesn't seem to provide any gain).
+  - [insta](https://crates.io/crates/insta) based snapshot tests in addition to integration tests (note: `profile.dev.package.insta.opt-level = 3` recommented setting is deliberately omitted, as it doesn't seem to provide any gain).
 
 ## Requirements
 
