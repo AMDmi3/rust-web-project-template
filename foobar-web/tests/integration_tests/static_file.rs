@@ -24,7 +24,7 @@ async fn test_nonexistent(pool: PgPool) {
 async fn test_css(pool: PgPool) {
     let mut router = create_app(pool).await.unwrap();
     let request = Request::builder()
-        .uri("/static/amdmi3.css")
+        .uri("/static/amdmi3.min.css")
         .body("".to_owned())
         .unwrap();
     let response = router.call(request).await.unwrap();
