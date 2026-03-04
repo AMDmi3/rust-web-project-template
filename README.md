@@ -83,12 +83,14 @@ This code requires latest Rust-nightly.
    (note that you likely want stronger password for production usage)
 
    ```
-   psql --username postgres -c "CREATE DATABASE foobar"
-   psql --username postgres -c "CREATE USER foobar WITH PASSWORD 'foobar'"
-   psql --username postgres -c "GRANT ALL ON DATABASE foobar TO foobar"
+   sudo -u postgres psql -c "CREATE DATABASE foobar"
+   sudo -u postgres psql -c "CREATE USER foobar WITH PASSWORD 'foobar'"
+   sudo -u postgres psql -c "GRANT ALL ON DATABASE foobar TO foobar"
    ```
 
 2. Run the daemon
+
+   (note that you DSN may vary depending on postgresql settings)
 
    ```
    cargo run --bin foobar-daemon -- --dsn postgresql://foobar:foobar@localhost/foobar
