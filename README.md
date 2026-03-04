@@ -24,7 +24,7 @@ services like [Repology](https://github.com/repology/repology-rs).
 - Metrics collection.
   - [metrics](https://crates.io/crates/metrics) support with Prometheus export.
   - Out of box [metrics-process](https://crates.io/crates/metrics-process) collection.
-  - Out of box tokio metrics collection, including unstable metrics.
+  - Out of box tokio [metrics](https://docs.rs/tokio/latest/tokio/runtime/struct.RuntimeMetrics.html) collection, including unstable metrics.
 - PostgreSQL database support through [sqlx](https://crates.io/crates/sqlx).
   - [indoc](https://crates.io/crates/indoc) is used for nicely formatted multiline queries in the code.
   - `sqlx::query!` macros are not used (yet?), so no database connection is required for compilation.
@@ -63,7 +63,7 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Migrations and fixtures support from [sqlx](https://crates.io/crates/sqlx).
   - Webapp may be constructed as an object and used in the tests.
   - HTML validation in tests with [tidier](https://crates.io/crates/tidier).
-  - Additionally to regular tests which check given invariants, [insta](https://crates.io/crates/insta) based snapshot tests are supported, which compare complete webapp output to previously stored state.
+  - Additionally to regular tests which check given invariants, [insta](https://crates.io/crates/insta) based snapshot tests are supported, which compare complete webapp output to previously stored state (Note: `profile.dev.package.insta.opt-level = 3` recommented setting is deliberately omitted, as it doesn't seem to provide any gain).
 
 ## Requirements
 
