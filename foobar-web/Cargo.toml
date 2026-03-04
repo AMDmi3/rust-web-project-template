@@ -10,7 +10,7 @@ workspace = true
 [dependencies]
 anyhow = "1.0.102"
 askama = "0.15.4"
-axum = { git = "https://github.com/AMDmi3/axum.git", branch = "dm/matchit-8-6", features = ["macros"] }
+axum = { version = "0.8.8", features = ["macros"] }
 chrono = { version = "0.4.44", default-features = false, features = ["std", "now"] }
 cityhasher = "0.1.0"
 clap = { version = "4.5.60", features = ["derive"] }

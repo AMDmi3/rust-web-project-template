@@ -197,10 +197,11 @@ dependencies = [
 
 [[package]]
 name = "axum"
-version = "0.8.1"
-source = "git+https://github.com/AMDmi3/axum.git?branch=dm%2Fmatchit-8-6#61eab758f6396a1732c8db993ecf33df24c1007e"
+version = "0.8.8"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8b52af3cb4058c895d37317bb27508dccc8e5f2d39454016b297bf4a400597b8"
 dependencies = [
- "axum-core 0.5.0",
+ "axum-core",
  "axum-macros",
  "bytes",
  "form_urlencoded",
@@ -216,33 +217,13 @@ dependencies = [
  "mime",
  "percent-encoding",
  "pin-project-lite",
- "rustversion",
- "serde",
+ "serde_core",
  "serde_json",
  "serde_path_to_error",
  "serde_urlencoded",
  "sync_wrapper",
  "tokio",
  "tower",
- "tower-layer",
- "tower-service",
- "tracing",
-]
-
-[[package]]
-name = "axum-core"
-version = "0.5.0"
-source = "git+https://github.com/AMDmi3/axum.git?branch=dm%2Fmatchit-8-6#61eab758f6396a1732c8db993ecf33df24c1007e"
-dependencies = [
- "bytes",
- "futures-util",
- "http",
- "http-body",
- "http-body-util",
- "mime",
- "pin-project-lite",
- "rustversion",
- "sync_wrapper",
  "tower-layer",
  "tower-service",
  "tracing",
@@ -264,12 +245,14 @@ dependencies = [
  "sync_wrapper",
  "tower-layer",
  "tower-service",
+ "tracing",
 ]
 
 [[package]]
 name = "axum-macros"
 version = "0.5.0"
-source = "git+https://github.com/AMDmi3/axum.git?branch=dm%2Fmatchit-8-6#61eab758f6396a1732c8db993ecf33df24c1007e"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "604fde5e028fea851ce1d8570bbdc034bec850d157f7569d10f347d06808c05c"
 dependencies = [
  "proc-macro2",
  "quote",
@@ -1588,9 +1571,9 @@ dependencies = [
 
 [[package]]
 name = "matchit"
-version = "0.8.6"
+version = "0.8.4"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "2f926ade0c4e170215ae43342bf13b9310a437609c81f29f86c5df6657582ef9"
+checksum = "47e1ffaa40ddd1f3ed91f717a33c8c0ee23fff369e3aa8772b9605cc1d22f4c3"
 
 [[package]]
 name = "md-5"
@@ -3120,7 +3103,7 @@ version = "0.11.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "151b5a3e3c45df17466454bb74e9ecedecc955269bdedbf4d150dfa393b55a36"
 dependencies = [
- "axum-core 0.5.6",
+ "axum-core",
  "cookie",
  "futures-util",
  "http",
