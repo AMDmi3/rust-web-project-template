@@ -184,10 +184,10 @@ async fn main() -> anyhow::Result<()> {
             loop {
                 let res = try {
                     let (num_items, random): (i64, f64) = sqlx::query_as(indoc! {"
-                    SELECT
-                        count(*), random()
-                    FROM items
-                "})
+                        SELECT
+                            count(*), random()
+                        FROM items
+                    "})
                     .fetch_one(&pool)
                     .await?;
 
@@ -199,18 +199,18 @@ async fn main() -> anyhow::Result<()> {
                             hasher.finish()
                         });
                         sqlx::query(indoc! {"
-                        INSERT INTO items(text)
-                        VALUES($1)
-                    "})
+                            INSERT INTO items(text)
+                            VALUES($1)
+                        "})
                         .bind(&text)
                         .execute(&pool)
                         .await?;
                     } else {
                         sqlx::query(indoc! {"
-                        DELETE FROM items
-                        WHERE
-                            id = (SELECT min(id) FROM items)
-                    "})
+                            DELETE FROM items
+                            WHERE
+                                id = (SELECT min(id) FROM items)
+                        "})
                         .execute(&pool)
                         .await?;
                     }
