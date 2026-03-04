@@ -216,11 +216,8 @@ async fn main() -> anyhow::Result<()> {
                     }
                 };
 
-                match res {
-                    Err(error) => {
-                        error!(%error, "error in foobar_worker");
-                    }
-                    _ => {}
+                if let Err(error) = res {
+                    error!(%error, "error in foobar_worker");
                 }
 
                 tokio::time::sleep(Duration::from_secs(5)).await;
