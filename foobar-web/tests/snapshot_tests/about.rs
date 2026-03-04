@@ -12,7 +12,10 @@ use foobar_web::create_app;
 #[sqlx::test(migrator = "foobar_common::MIGRATOR")]
 async fn test_index(pool: PgPool) {
     let mut router = create_app(pool).await.unwrap();
-    let request = Request::builder().uri("/about").body("".to_owned()).unwrap();
+    let request = Request::builder()
+        .uri("/about")
+        .body("".to_owned())
+        .unwrap();
     let response = router.call(request).await.unwrap();
     let snapshot = (
         response.status(),
