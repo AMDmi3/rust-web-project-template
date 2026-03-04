@@ -8,6 +8,3 @@ rust-version = "1.96"
 
 [workspace.lints.rust]
 unexpected_cfgs = { level = "warn", check-cfg = ['cfg(coverage)'] }
-
-[profile.dev.package]
-insta.opt-level = 3
