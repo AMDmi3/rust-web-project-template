@@ -7,7 +7,7 @@ on:
 jobs:
   test:
     env:
-      POSTGRESQL: 16
+      POSTGRESQL: 18
       TARGET_PROJECT_NAME: myproj
     runs-on: ubuntu-latest
     steps:
@@ -17,14 +17,15 @@ jobs:
           toolchain: nightly-2026-03-03
           components: rustfmt,llvm-tools-preview,clippy
       - uses: taiki-e/install-action@cargo-hack
-      - name: Set up the database
+      - name: Set up PostgreSQL
         run: |
-          curl -s https://www.postgresql.org/media/keys/ACCC4CF8.asc | sudo apt-key add -
-          sudo sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt $(lsb_release -cs)-pgdg main $POSTGRESQL" > /etc/apt/sources.list.d/pgdg.list'
-          sudo apt update
+          sudo systemctl stop postgresql
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
           sudo apt install postgresql-$POSTGRESQL
+          sudo pg_createcluster $POSTGRESQL main
+          sudo sed -i -e 's|5433|5432|' /etc/postgresql/$POSTGRESQL/main/postgresql.conf
           sudo sed -i -e '/^local/ s|peer|trust|' /etc/postgresql/$POSTGRESQL/main/pg_hba.conf
-          sudo pg_ctlcluster $POSTGRESQL main restart
+          sudo pg_ctlcluster $POSTGRESQL main start
       - name: Init the database
         run: |
           psql --username postgres -c "CREATE DATABASE $TARGET_PROJECT_NAME"
