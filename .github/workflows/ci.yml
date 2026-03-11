@@ -16,6 +16,7 @@ jobs:
         with:
           toolchain: nightly-2026-03-10
           components: rustfmt,llvm-tools-preview,clippy
+      - uses: Swatinem/rust-cache@v2
       - uses: taiki-e/install-action@cargo-hack
       - name: Set up PostgreSQL
         run: |
@@ -31,23 +32,23 @@ jobs:
           psql --username postgres -c "CREATE DATABASE $TARGET_PROJECT_NAME"
           psql --username postgres -c "CREATE USER $TARGET_PROJECT_NAME WITH PASSWORD '$TARGET_PROJECT_NAME'"
           psql --username postgres -c "GRANT ALL ON DATABASE $TARGET_PROJECT_NAME TO $TARGET_PROJECT_NAME"
-      - name: Save rust version for proper cache setup
-        run: rustc -V > .rustc.version
-      - uses: actions/cache@v5
-        with:
-          path: |
-            ~/.cargo/bin/
-            ~/.cargo/registry/index/
-            ~/.cargo/registry/cache/
-            ~/.cargo/git/db/
-          key: cargo-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: cargo-
-      - uses: actions/cache@v5
-        with:
-          path: |
-            target/
-          key: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-${{ hashFiles('**/Cargo.lock') }}
-          restore-keys: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-
+      #- name: Save rust version for proper cache setup
+      #  run: rustc -V > .rustc.version
+      #- uses: actions/cache@v5
+      #  with:
+      #    path: |
+      #      ~/.cargo/bin/
+      #      ~/.cargo/registry/index/
+      #      ~/.cargo/registry/cache/
+      #      ~/.cargo/git/db/
+      #    key: cargo-${{ hashFiles('**/Cargo.lock') }}
+      #    restore-keys: cargo-
+      #- uses: actions/cache@v5
+      #  with:
+      #    path: |
+      #      target/
+      #    key: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-${{ hashFiles('**/Cargo.lock') }}
+      #    restore-keys: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-
       - name: Run rename script               # removed by rename.sh
         run: ./rename.sh $TARGET_PROJECT_NAME # removed by rename.sh
       - name: Format check
