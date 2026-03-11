@@ -3,14 +3,13 @@
 
 use std::sync::Arc;
 
-use anyhow::Result;
 use askama::Template;
 use axum::extract::State;
 use axum::http::{HeaderValue, StatusCode, header};
 use axum::response::IntoResponse;
 use chrono::{DateTime, Utc};
 use indoc::indoc;
-use sqlx::{FromRow, PgPool};
+use sqlx::FromRow;
 
 use crate::endpoints::Endpoint;
 use crate::result::EndpointResult;
