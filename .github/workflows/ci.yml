@@ -55,6 +55,8 @@ jobs:
         run: cargo fmt --check
       - name: Clippy check
         run: cargo clippy --all-targets
+        env:
+          CARGO_TARGET_DIR: target/clippy
       - name: Build
         run: |
           cargo build
