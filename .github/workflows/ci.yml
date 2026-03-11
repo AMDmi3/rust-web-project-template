@@ -67,9 +67,9 @@ jobs:
           DATABASE_URL: postgres:///?user=postgres
       - name: Run the daemon
         run: |
-          timeout 10s cargo run --bin $TARGET_PROJECT_NAME-daemon -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME || err=$?
+          timeout 2s cargo run --bin $TARGET_PROJECT_NAME-daemon -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME || err=$?
           if [ $err -eq 124 ]; then exit 0; else exit $err; fi  # timeout is OK, it means that the daemon has started
       - name: Run the webapp
         run: |
-          timeout 10s cargo run --bin $TARGET_PROJECT_NAME-web -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME --listen 127.0.0.1:3000 || err=$?
+          timeout 2s cargo run --bin $TARGET_PROJECT_NAME-web -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME --listen 127.0.0.1:3000 || err=$?
           if [ $err -eq 124 ]; then exit 0; else exit $err; fi  # timeout is OK, it means that the daemon has started
