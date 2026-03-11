@@ -36,6 +36,9 @@ services like [Repology](https://github.com/repology/repology-rs).
   - A hack is used to support coverage for functions instrumented with `tracing::instrument`.
 - Continuous integration.
   - GitHub actions pipeline running build (both at workspace level, and for individual crates through [cargo hack](https://crates.io/crates/cargo-hack)) and all kinds of tests, for pushes, PRs and weekly (to avoid bitrot).
+  - CI uses fresh version of PostgreSQL.
+  - CI uses pinned nighly rust to avoid unwanted breakages and use cache more effectively.
+  - [Swatinem/rust-cache](https://github.com/Swatinem/rust-cache) is used for more effective rust caching. Additionally, `clippy` is set up to use different target directory than normal build to avoid cache invalidation.
   - Dependabot config for keeping dependencies up to date, with 14 day cooldown for major and minor updates.
 
 ### Daemon
