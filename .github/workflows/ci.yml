@@ -12,6 +12,8 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
+      - name: Run rename script               # removed by rename.sh
+        run: ./rename.sh $TARGET_PROJECT_NAME # removed by rename.sh
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: nightly-2026-03-10
@@ -49,8 +51,6 @@ jobs:
       #      target/
       #    key: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-${{ hashFiles('**/Cargo.lock') }}
       #    restore-keys: ${{ runner.os }}-target-${{ hashFiles('.rustc.version') }}-
-      - name: Run rename script               # removed by rename.sh
-        run: ./rename.sh $TARGET_PROJECT_NAME # removed by rename.sh
       - name: Format check
         run: cargo fmt --check
       - name: Clippy check
