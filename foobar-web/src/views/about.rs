@@ -16,7 +16,7 @@ struct TemplateParams {
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn about() -> EndpointResult {
-    let ctx = TemplateContext::new_without_params(Endpoint::About);
+    let ctx = TemplateContext::new(Endpoint::About);
 
     Ok(Html(TemplateParams { ctx }.render()?).into_response())
 }

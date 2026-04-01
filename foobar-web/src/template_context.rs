@@ -13,22 +13,16 @@ pub struct TemplateContext {
 }
 
 impl TemplateContext {
-    pub fn new(
-        endpoint: Endpoint,
-        path_params: Vec<(String, String)>,
-        query_params: Vec<(String, String)>,
-    ) -> Self {
+    pub fn new(endpoint: Endpoint) -> Self {
         Self {
             endpoint,
-            params: path_params.into_iter().chain(query_params).collect(),
+            params: vec![],
         }
     }
 
-    pub fn new_without_params(endpoint: Endpoint) -> Self {
-        Self {
-            endpoint,
-            params: Default::default(),
-        }
+    pub fn with_params(mut self, params: &[(String, String)]) -> Self {
+        params.iter().cloned().collect_into(&mut self.params);
+        self
     }
 
     pub fn url_for_static(&self, file_name: &str) -> Result<String> {

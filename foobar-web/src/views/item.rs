@@ -36,7 +36,7 @@ pub async fn item(
     Path(id): Path<u64>,
     State(state): State<Arc<AppState>>,
 ) -> EndpointResult {
-    let ctx = TemplateContext::new(Endpoint::Item, gen_path, vec![]);
+    let ctx = TemplateContext::new(Endpoint::Item).with_params(&gen_path);
 
     let item: Option<Item> = sqlx::query_as(indoc! {r#"
         SELECT

@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #![feature(coverage_attribute)]
+#![feature(iter_collect_into)]
 #![feature(stmt_expr_attributes)]
 
 pub mod config;

@@ -31,7 +31,7 @@ struct TemplateParams<'a> {
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn index(State(state): State<Arc<AppState>>) -> EndpointResult {
-    let ctx = TemplateContext::new_without_params(Endpoint::Index);
+    let ctx = TemplateContext::new(Endpoint::Index);
 
     let items: Vec<Item> = sqlx::query_as(indoc! {r#"
         SELECT
