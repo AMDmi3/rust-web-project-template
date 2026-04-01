@@ -13,6 +13,9 @@ pub enum Endpoint {
     #[strum(props(path = "/"))]
     Index,
 
+    #[strum(props(path = "/item/{id}"))]
+    Item,
+
     #[strum(props(path = "/about"))]
     About,
 }

@@ -1,0 +1,9 @@
+---
+source: foobar-web/tests/snapshot_tests/item.rs
+expression: "server.get(\"/item/999\").await"
+---
+HTTP/1.1 404 Not Found
+content-type: text/plain; charset=utf-8
+content-length: 14
+
+Item not found

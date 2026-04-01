@@ -3,8 +3,10 @@
 
 mod about;
 mod index;
+mod item;
 mod static_files;
 
 pub use about::*;
 pub use index::*;
+pub use item::*;
 pub use static_files::*;

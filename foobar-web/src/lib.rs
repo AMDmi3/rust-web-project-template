@@ -84,6 +84,7 @@ pub async fn create_app(pool: PgPool) -> anyhow::Result<Router> {
     Ok(Router::new()
         .route(About.path(), get(views::about))
         .route(Index.path(), get(views::index))
+        .route(Item.path(), get(views::item))
         .route(StaticFile.path(), get(views::static_file))
         .route_layer(middleware::from_fn(track_metrics))
         .with_state(state))

@@ -1,0 +1,12 @@
+{% extends "_base.html" %}
+{% block title %}Item {{ item.id }} - {{ super() }}{% endblock %}
+{% block header %}Item {{ item.id }}{% endblock %}
+{% block content %}
+
+<ul>
+	<li><strong>ID:</strong> {{ item.id }}</li>
+	<li><strong>Text:</strong> {{ item.text }}</li>
+	<li><strong>Time:</strong> {{ item.time.format("%Y-%m-%d") }}</li>
+</ul>
+
+{% endblock content %}

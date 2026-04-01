@@ -1,0 +1,62 @@
+---
+source: foobar-web/tests/snapshot_tests/item.rs
+expression: "server.get(\"/item/1\").await"
+---
+HTTP/1.1 200 OK
+content-type: text/html; charset=utf-8
+content-length: 1237
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Item 1 - foobar</title>
+	<link rel="stylesheet" href="/static/amdmi3.min.f3478182ea6d23a3.css">
+</head>
+<body>
+
+<header class="header"><div class="container">
+<nav class="navbar">
+	<div class="navbar-brand">
+		<strong>Foobar Demo</strong>
+	</div>
+	<ul class="navbar-menu">
+		<li class="navbar-item"><a href="/">Items</a></li>
+		<li class="navbar-item"><a href="/about">About</a></li>
+	</ul>
+</nav>
+</div></header>
+
+<main class="main"><div class="container">
+
+<h1>Item 1</h1>
+
+
+<ul>
+	<li><strong>ID:</strong> 1</li>
+	<li><strong>Text:</strong> Sample item foo</li>
+	<li><strong>Time:</strong> 1970-01-01</li>
+</ul>
+
+
+</div></main>
+
+<footer class="footer"><div class="container">
+<div class="columns is-auto-width">
+	<div class="column">
+		Copyright (C) Dmitry Marakasov
+	</div>
+	<div class="column is-center">
+		Code licensed under GPLv3+
+	</div>
+	<div class="column is-right">
+		GitHub
+		<a href="https://github.com/AMDmi3/rust-web-project-template">repository</a>,
+		<a href="https://github.com/AMDmi3/rust-web-project-template/issues">issues</a>
+	</div>
+</div>
+</div></footer>
+
+</body>
+</html>
