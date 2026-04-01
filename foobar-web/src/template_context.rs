@@ -12,6 +12,7 @@ pub struct TemplateContext {
     params: Vec<(String, String)>,
 }
 
+#[allow(unused)]
 impl TemplateContext {
     pub fn new(endpoint: Endpoint) -> Self {
         Self {
