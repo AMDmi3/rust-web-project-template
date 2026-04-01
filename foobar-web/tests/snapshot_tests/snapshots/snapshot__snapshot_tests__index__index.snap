@@ -4,7 +4,7 @@ expression: "server.get(\"/\").await"
 ---
 HTTP/1.1 200 OK
 content-type: text/html; charset=utf-8
-content-length: 1301
+content-length: 1729
 
 <!DOCTYPE html>
 <html lang="en">
@@ -42,6 +42,22 @@ content-length: 1301
 		</tr>
 	</thead>
 	<tbody>
+		<tr>
+			<td class="is-center"><a href="/item/1">1</a></td>
+			<td class="is-center">Sample item foo</td>
+			<td class="is-center">
+				<span class="hide-on-mobile">1970-01-01</span>
+				00:00:00
+			</td>
+		</tr>
+		<tr>
+			<td class="is-center"><a href="/item/2">2</a></td>
+			<td class="is-center">Sample item bar</td>
+			<td class="is-center">
+				<span class="hide-on-mobile">1970-01-01</span>
+				00:00:00
+			</td>
+		</tr>
 	</tbody>
 </table>
 

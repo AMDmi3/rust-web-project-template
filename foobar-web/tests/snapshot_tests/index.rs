@@ -6,7 +6,7 @@ use sqlx::PgPool;
 
 use foobar_web::create_app;
 
-#[sqlx::test(migrator = "foobar_common::MIGRATOR")]
+#[sqlx::test(migrator = "foobar_common::MIGRATOR", fixtures("sample_items"))]
 async fn test_index(pool: PgPool) {
     let server = TestServer::new(create_app(pool).await.unwrap());
     insta::assert_snapshot!(server.get("/").await);
