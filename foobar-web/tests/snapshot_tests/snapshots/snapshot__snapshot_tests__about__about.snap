@@ -3,7 +3,7 @@ source: foobar-web/tests/snapshot_tests/about.rs
 expression: "server.get(\"/about\").await"
 ---
 HTTP/1.1 200 OK
-content-type: text/html
+content-type: text/html; charset=utf-8
 content-length: 1208
 
 <!DOCTYPE html>

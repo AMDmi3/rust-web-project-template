@@ -11,7 +11,7 @@ async fn test_index(pool: PgPool) {
     let server = TestServer::new(create_app(pool).await.unwrap());
     let response = server.get("/").await;
     response.assert_status_ok();
-    response.assert_header("content-type", "text/html");
+    response.assert_header("content-type", "text/html; charset=utf-8");
     response.assert_text_contains("Sample item foo");
     response.assert_text_contains("Sample item bar");
     assert!(

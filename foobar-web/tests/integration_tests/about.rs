@@ -11,7 +11,7 @@ async fn test_about(pool: PgPool) {
     let server = TestServer::new(create_app(pool).await.unwrap());
     let response = server.get("/about").await;
     response.assert_status_ok();
-    response.assert_header("content-type", "text/html");
+    response.assert_header("content-type", "text/html; charset=utf-8");
     response.assert_text_contains("example about page");
     assert!(
         !tidier::Doc::new(response.text(), false)

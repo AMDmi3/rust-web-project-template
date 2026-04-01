@@ -5,8 +5,7 @@ use std::sync::Arc;
 
 use askama::Template;
 use axum::extract::State;
-use axum::http::{HeaderValue, StatusCode, header};
-use axum::response::IntoResponse;
+use axum::response::{Html, IntoResponse};
 use chrono::{DateTime, Utc};
 use indoc::indoc;
 use sqlx::FromRow;
@@ -45,13 +44,5 @@ pub async fn index(State(state): State<Arc<AppState>>) -> EndpointResult {
     .fetch_all(&state.pool)
     .await?;
 
-    Ok((
-        StatusCode::OK,
-        [(
-            header::CONTENT_TYPE,
-            HeaderValue::from_static(mime::TEXT_HTML.as_ref()),
-        )],
-        TemplateParams { ctx, items: &items }.render()?,
-    )
-        .into_response())
+    Ok(Html(TemplateParams { ctx, items: &items }.render()?).into_response())
 }

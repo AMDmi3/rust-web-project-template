@@ -2,8 +2,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 use askama::Template;
-use axum::http::{HeaderValue, StatusCode, header};
-use axum::response::IntoResponse;
+use axum::response::{Html, IntoResponse};
 
 use crate::endpoints::Endpoint;
 use crate::result::EndpointResult;
@@ -19,13 +18,5 @@ struct TemplateParams {
 pub async fn about() -> EndpointResult {
     let ctx = TemplateContext::new_without_params(Endpoint::About);
 
-    Ok((
-        StatusCode::OK,
-        [(
-            header::CONTENT_TYPE,
-            HeaderValue::from_static(mime::TEXT_HTML.as_ref()),
-        )],
-        TemplateParams { ctx }.render()?,
-    )
-        .into_response())
+    Ok(Html(TemplateParams { ctx }.render()?).into_response())
 }
