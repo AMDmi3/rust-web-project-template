@@ -4,11 +4,11 @@
 #![feature(coverage_attribute)]
 
 pub mod config;
-mod endpoints;
+mod handlers;
 mod result;
+mod routes;
 mod state;
 mod static_files;
-mod views;
 
 use std::sync::Arc;
 use std::time::Instant;
@@ -26,16 +26,16 @@ use sqlx::PgPool;
 use tracing::info;
 
 //use crate::config::AppConfig;
-use crate::endpoints::{Endpoint, SelfEndpoint};
+use crate::routes::{Route, SelfRoute};
 use crate::state::AppState;
 use crate::static_files::STATIC_FILES;
 
-async fn track_metrics(endpoint: SelfEndpoint, request: Request, next: Next) -> impl IntoResponse {
+async fn track_metrics(route: SelfRoute, request: Request, next: Next) -> impl IntoResponse {
     let start = Instant::now();
     let response = next.run(request).await;
     let latency = start.elapsed().as_secs_f64();
 
-    let route_name = endpoint.path();
+    let route_name = route.path();
     let status = response.status().as_u16().to_string();
 
     counter!("foobar_web_http_requests_total", "route" => route_name, "status" => status)
@@ -59,7 +59,7 @@ pub async fn create_app(pool: PgPool) -> anyhow::Result<Router> {
 
     info!("initializing routes");
     Ok(
-        Endpoint::to_router_with(|router| router.layer(middleware::from_fn(track_metrics)))
+        Route::to_router_with(|router| router.layer(middleware::from_fn(track_metrics)))
             .with_state(state),
     )
 }

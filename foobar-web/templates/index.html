@@ -14,7 +14,7 @@
 	<tbody>
 		{%- for item in items %}
 		<tr>
-			<td class="is-center"><a href="{{ crate::endpoints::Endpoint::Item.url_for().param("id", item.id).build()? }}">{{ item.id }}</a></td>
+			<td class="is-center"><a href="{{ crate::routes::Route::Item.url_for().param("id", item.id).build()? }}">{{ item.id }}</a></td>
 			<td class="is-center">{{ item.text }}</td>
 			<td class="is-center">
 				<span class="hide-on-mobile">{{ item.time.format("%Y-%m-%d") }}</span>

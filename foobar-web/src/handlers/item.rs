@@ -11,8 +11,8 @@ use chrono::{DateTime, Utc};
 use indoc::indoc;
 use sqlx::FromRow;
 
-use crate::endpoints::SelfEndpoint;
 use crate::result::EndpointResult;
+use crate::routes::SelfRoute;
 use crate::state::AppState;
 
 #[derive(FromRow)]
@@ -25,13 +25,13 @@ struct Item {
 #[derive(Template)]
 #[template(path = "item.html")]
 struct TemplateParams<'a> {
-    endpoint: &'a SelfEndpoint,
+    route: &'a SelfRoute,
     item: &'a Item,
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn item(
-    endpoint: SelfEndpoint,
+    route: SelfRoute,
     Path(id): Path<u64>,
     State(state): State<Arc<AppState>>,
 ) -> EndpointResult {
@@ -53,7 +53,7 @@ pub async fn item(
 
     Ok(Html(
         TemplateParams {
-            endpoint: &endpoint,
+            route: &route,
             item: &item,
         }
         .render()?,

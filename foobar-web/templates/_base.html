@@ -14,15 +14,15 @@
 		<strong>Foobar Demo</strong>
 	</div>
 	<ul class="navbar-menu">
-		{%- macro navbar_link(name, target_endpoint, section) -%}
-		{%- if endpoint.props().section == section -%}
-		<li class="navbar-item is-active"><a href="{{ target_endpoint.url_for().build()? }}" aria-current="true">{{ name }}</a></li>
+		{%- macro navbar_link(name, target_route, section) -%}
+		{%- if route.props().section == section -%}
+		<li class="navbar-item is-active"><a href="{{ target_route.url_for().build()? }}" aria-current="true">{{ name }}</a></li>
 		{%- else -%}
-		<li class="navbar-item"><a href="{{ target_endpoint.url_for().build()? }}">{{ name }}</a></li>
+		<li class="navbar-item"><a href="{{ target_route.url_for().build()? }}">{{ name }}</a></li>
 		{%- endif -%}
 		{%- endmacro %}
-		{{ navbar_link("Items", crate::endpoints::Endpoint::Index, crate::endpoints::Section::Items) }}
-		{{ navbar_link("About", crate::endpoints::Endpoint::About, crate::endpoints::Section::Docs) }}
+		{{ navbar_link("Items", crate::routes::Route::Index, crate::routes::Section::Items) }}
+		{{ navbar_link("About", crate::routes::Route::About, crate::routes::Section::Docs) }}
 	</ul>
 </nav>
 </div></header>

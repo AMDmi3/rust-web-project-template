@@ -5,8 +5,8 @@ use std::sync::Arc;
 
 use axum_enumroutes::routes;
 
+use crate::handlers;
 use crate::state::AppState;
-use crate::views;
 
 #[derive(Default, Clone, Copy, PartialEq, Eq)]
 pub enum Section {
@@ -17,19 +17,19 @@ pub enum Section {
 }
 
 #[derive(Default, Clone, Copy, PartialEq, Eq)]
-pub struct EndpointProps {
+pub struct RouteProps {
     pub section: Section,
 }
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
-#[routes(state_type = Arc<AppState>, props_type = EndpointProps)]
-pub enum Endpoint {
-    #[get("/static/{file_name}", handler = views::static_file)]
+#[routes(state_type = Arc<AppState>, props_type = RouteProps)]
+pub enum Route {
+    #[get("/static/{file_name}", handler = handlers::static_file)]
     StaticFile,
-    #[get("/", handler = views::index, props = EndpointProps { section: Section::Items })]
+    #[get("/", handler = handlers::index, props = RouteProps { section: Section::Items })]
     Index,
-    #[get("/item/{id}", handler = views::item, props = EndpointProps { section: Section::Items })]
+    #[get("/item/{id}", handler = handlers::item, props = RouteProps { section: Section::Items })]
     Item,
-    #[get("/about", handler = views::about, props = EndpointProps { section: Section::Docs })]
+    #[get("/about", handler = handlers::about, props = RouteProps { section: Section::Docs })]
     About,
 }
