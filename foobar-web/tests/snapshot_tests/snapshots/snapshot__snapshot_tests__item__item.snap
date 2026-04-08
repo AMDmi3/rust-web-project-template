@@ -4,7 +4,7 @@ expression: "server.get(\"/item/1\").await"
 ---
 HTTP/1.1 200 OK
 content-type: text/html; charset=utf-8
-content-length: 1237
+content-length: 1267
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +22,7 @@ content-length: 1237
 		<strong>Foobar Demo</strong>
 	</div>
 	<ul class="navbar-menu">
-		<li class="navbar-item"><a href="/">Items</a></li>
+		<li class="navbar-item is-active"><a href="/" aria-current="true">Items</a></li>
 		<li class="navbar-item"><a href="/about">About</a></li>
 	</ul>
 </nav>

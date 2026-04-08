@@ -10,10 +10,9 @@ use chrono::{DateTime, Utc};
 use indoc::indoc;
 use sqlx::FromRow;
 
-use crate::endpoints::Endpoint;
+use crate::endpoints::SelfEndpoint;
 use crate::result::EndpointResult;
 use crate::state::AppState;
-use crate::template_context::TemplateContext;
 
 #[derive(FromRow)]
 struct Item {
@@ -25,14 +24,12 @@ struct Item {
 #[derive(Template)]
 #[template(path = "index.html")]
 struct TemplateParams<'a> {
-    ctx: TemplateContext,
+    endpoint: &'a SelfEndpoint,
     items: &'a [Item],
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
-pub async fn index(State(state): State<Arc<AppState>>) -> EndpointResult {
-    let ctx = TemplateContext::new(Endpoint::Index);
-
+pub async fn index(endpoint: SelfEndpoint, State(state): State<Arc<AppState>>) -> EndpointResult {
     let items: Vec<Item> = sqlx::query_as(indoc! {r#"
         SELECT
             id,
@@ -44,5 +41,12 @@ pub async fn index(State(state): State<Arc<AppState>>) -> EndpointResult {
     .fetch_all(&state.pool)
     .await?;
 
-    Ok(Html(TemplateParams { ctx, items: &items }.render()?).into_response())
+    Ok(Html(
+        TemplateParams {
+            endpoint: &endpoint,
+            items: &items,
+        }
+        .render()?,
+    )
+    .into_response())
 }

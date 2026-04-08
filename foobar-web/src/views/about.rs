@@ -4,19 +4,22 @@
 use askama::Template;
 use axum::response::{Html, IntoResponse};
 
-use crate::endpoints::Endpoint;
+use crate::endpoints::SelfEndpoint;
 use crate::result::EndpointResult;
-use crate::template_context::TemplateContext;
 
 #[derive(Template)]
 #[template(path = "about.html")]
-struct TemplateParams {
-    ctx: TemplateContext,
+struct TemplateParams<'a> {
+    endpoint: &'a SelfEndpoint,
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
-pub async fn about() -> EndpointResult {
-    let ctx = TemplateContext::new(Endpoint::About);
-
-    Ok(Html(TemplateParams { ctx }.render()?).into_response())
+pub async fn about(endpoint: SelfEndpoint) -> EndpointResult {
+    Ok(Html(
+        TemplateParams {
+            endpoint: &endpoint,
+        }
+        .render()?,
+    )
+    .into_response())
 }

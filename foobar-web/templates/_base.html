@@ -4,7 +4,7 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>{% block title %}foobar{% endblock %}</title>
-	<link rel="stylesheet" href="{{ ctx.url_for_static("amdmi3.min.css")? }}">
+	<link rel="stylesheet" href="{{ crate::static_files::url_for_static("amdmi3.min.css")? }}">
 </head>
 <body>
 
@@ -14,15 +14,15 @@
 		<strong>Foobar Demo</strong>
 	</div>
 	<ul class="navbar-menu">
-		{%- macro navbar_link(name, endpoint) -%}
-		{%- if ctx.is_endpoint(*endpoint) -%}
-		<li class="navbar-item is-active"><a href="{{ ctx.url_for(*endpoint, [])? }}" aria-current="true">{{ name }}</a></li>
+		{%- macro navbar_link(name, target_endpoint, section) -%}
+		{%- if endpoint.props().section == section -%}
+		<li class="navbar-item is-active"><a href="{{ target_endpoint.url_for().build()? }}" aria-current="true">{{ name }}</a></li>
 		{%- else -%}
-		<li class="navbar-item"><a href="{{ ctx.url_for(*endpoint, [])? }}">{{ name }}</a></li>
+		<li class="navbar-item"><a href="{{ target_endpoint.url_for().build()? }}">{{ name }}</a></li>
 		{%- endif -%}
 		{%- endmacro %}
-		{{ navbar_link("Items", crate::endpoints::Endpoint::Index) }}
-		{{ navbar_link("About", crate::endpoints::Endpoint::About) }}
+		{{ navbar_link("Items", crate::endpoints::Endpoint::Index, crate::endpoints::Section::Items) }}
+		{{ navbar_link("About", crate::endpoints::Endpoint::About, crate::endpoints::Section::Docs) }}
 	</ul>
 </nav>
 </div></header>

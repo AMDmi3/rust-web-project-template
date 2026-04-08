@@ -11,10 +11,9 @@ use chrono::{DateTime, Utc};
 use indoc::indoc;
 use sqlx::FromRow;
 
-use crate::endpoints::Endpoint;
+use crate::endpoints::SelfEndpoint;
 use crate::result::EndpointResult;
 use crate::state::AppState;
-use crate::template_context::TemplateContext;
 
 #[derive(FromRow)]
 struct Item {
@@ -26,18 +25,16 @@ struct Item {
 #[derive(Template)]
 #[template(path = "item.html")]
 struct TemplateParams<'a> {
-    ctx: TemplateContext,
+    endpoint: &'a SelfEndpoint,
     item: &'a Item,
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn item(
-    Path(gen_path): Path<Vec<(String, String)>>,
+    endpoint: SelfEndpoint,
     Path(id): Path<u64>,
     State(state): State<Arc<AppState>>,
 ) -> EndpointResult {
-    let ctx = TemplateContext::new(Endpoint::Item).with_params(&gen_path);
-
     let item: Option<Item> = sqlx::query_as(indoc! {r#"
         SELECT
             id,
@@ -54,5 +51,12 @@ pub async fn item(
         return Ok((StatusCode::NOT_FOUND, "Item not found").into_response());
     };
 
-    Ok(Html(TemplateParams { ctx, item: &item }.render()?).into_response())
+    Ok(Html(
+        TemplateParams {
+            endpoint: &endpoint,
+            item: &item,
+        }
+        .render()?,
+    )
+    .into_response())
 }

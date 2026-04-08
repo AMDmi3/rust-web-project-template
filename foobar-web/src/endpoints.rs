@@ -12,9 +12,11 @@ use crate::views;
 pub enum Section {
     #[default]
     Undefined,
+    Items,
+    Docs,
 }
 
-#[derive(Default, Clone, Copy)]
+#[derive(Default, Clone, Copy, PartialEq, Eq)]
 pub struct EndpointProps {
     pub section: Section,
 }
@@ -24,16 +26,10 @@ pub struct EndpointProps {
 pub enum Endpoint {
     #[get("/static/{file_name}", handler = views::static_file)]
     StaticFile,
-    #[get("/", handler = views::index)]
+    #[get("/", handler = views::index, props = EndpointProps { section: Section::Items })]
     Index,
-    #[get("/item/{id}", handler = views::item)]
+    #[get("/item/{id}", handler = views::item, props = EndpointProps { section: Section::Items })]
     Item,
-    #[get("/about", handler = views::about)]
+    #[get("/about", handler = views::about, props = EndpointProps { section: Section::Docs })]
     About,
-}
-
-impl Endpoint {
-    pub fn is_section(&self, section: Section) -> bool {
-        self.props().section == section
-    }
 }

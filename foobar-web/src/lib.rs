@@ -2,15 +2,12 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 #![feature(coverage_attribute)]
-#![feature(iter_collect_into)]
 
 pub mod config;
 mod endpoints;
 mod result;
 mod state;
 mod static_files;
-mod template_context;
-mod url_for;
 mod views;
 
 use std::sync::Arc;
