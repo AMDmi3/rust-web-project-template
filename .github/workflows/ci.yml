@@ -9,6 +9,7 @@ jobs:
     env:
       POSTGRESQL: 18
       TARGET_PROJECT_NAME: myproj
+      RUSTFLAGS: -Dwarnings
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v6
