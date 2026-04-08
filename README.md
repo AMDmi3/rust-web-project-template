@@ -37,7 +37,7 @@ services like [Repology](https://github.com/repology/repology-rs).
 - Continuous integration.
   - GitHub actions pipeline running build (both at workspace level, and for individual crates through [cargo hack](https://crates.io/crates/cargo-hack)) and all kinds of tests, for pushes, PRs and weekly (to avoid bitrot).
   - CI uses fresh version of PostgreSQL.
-  - CI uses pinned nighly rust to avoid unwanted breakages and use cache more effectively.
+  - CI uses pinned nightly rust to avoid unwanted breakages and use cache more effectively.
   - [Swatinem/rust-cache](https://github.com/Swatinem/rust-cache) is used for more effective rust caching. Additionally, `clippy` is set up to use different target directory than normal build to avoid cache invalidation.
   - Dependabot config for keeping dependencies up to date, with 14 day cooldown for major and minor updates.
 
@@ -68,7 +68,7 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Migrations and fixtures support from [sqlx](https://crates.io/crates/sqlx).
   - Webapp may be constructed as an object and used in the tests.
   - HTML validation in tests with [tidier](https://crates.io/crates/tidier).
-  - [insta](https://crates.io/crates/insta) based snapshot tests in addition to integration tests (note: `profile.dev.package.insta.opt-level = 3` recommented setting is deliberately omitted, as it doesn't seem to provide any gain).
+  - [insta](https://crates.io/crates/insta) based snapshot tests in addition to integration tests (note: `profile.dev.package.insta.opt-level = 3` recommended setting is deliberately omitted, as it doesn't seem to provide any gain).
 
 ## Requirements
 
@@ -76,7 +76,7 @@ This code requires latest Rust-nightly.
 
 ## Running
 
-0. You can rename the project (fixing all occurrances of placeholder name
+0. You can rename the project (fixing all occurrences of placeholder name
    in paths and the code) by calling
 
    ```

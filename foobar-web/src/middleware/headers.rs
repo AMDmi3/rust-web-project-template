@@ -31,7 +31,7 @@ pub async fn headers_middleware(
     // NOTE: Strict-Transport-Security must be set where HTTPS is terminated, e.g. nginx
 
     // XXX: Uncomment if desired, e.g. the site does not contain private
-    // info and referrer announcing does make sence (e.g. Repology)
+    // info and referrer announcing does make sense (e.g. Repology)
     //response.headers_mut().insert("Referrer-Policy", HeaderValue::from_static("unsafe-url"));
 
     response
