@@ -36,7 +36,7 @@ url = { version = "2.5.8", features = ["serde"] }
 url-escape = "0.1.1"
 
 [dev-dependencies]
-axum-test = "19.0.0"
+axum-test = "20.0.0"
 foobar-common = { path = "../foobar-common" }
 insta = "1.46.3"
 tidier = "0.5.5"
