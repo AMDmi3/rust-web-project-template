@@ -3,7 +3,6 @@
 
 #![feature(coverage_attribute)]
 #![feature(iter_collect_into)]
-#![feature(stmt_expr_attributes)]
 
 pub mod config;
 mod endpoints;
@@ -23,7 +22,6 @@ use axum::{
     extract::{MatchedPath, Request},
     middleware::{self, Next},
     response::IntoResponse,
-    routing::get,
 };
 
 use metrics::{counter, histogram};
@@ -31,6 +29,7 @@ use sqlx::PgPool;
 use tracing::info;
 
 //use crate::config::AppConfig;
+use crate::endpoints::Endpoint;
 use crate::state::AppState;
 use crate::static_files::STATIC_FILES;
 
@@ -80,13 +79,7 @@ pub async fn create_app(pool: PgPool) -> anyhow::Result<Router> {
     let _ = &*STATIC_FILES;
 
     info!("initializing routes");
-    use crate::endpoints::Endpoint::*;
-    #[rustfmt::skip]
-    Ok(Router::new()
-        .route(About.path(), get(views::about))
-        .route(Index.path(), get(views::index))
-        .route(Item.path(), get(views::item))
-        .route(StaticFile.path(), get(views::static_file))
+    Ok(Endpoint::add_to_router(Router::new())
         .route_layer(middleware::from_fn(track_metrics))
         .with_state(state))
 }

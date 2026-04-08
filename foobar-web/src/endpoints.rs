@@ -1,41 +1,39 @@
 // SPDX-FileCopyrightText: Copyright 2024 Dmitry Marakasov <amdmi3@amdmi3.ru>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use strum::EnumProperty;
-use strum_macros::{EnumString, IntoStaticStr};
+use std::sync::Arc;
 
-#[derive(EnumProperty, IntoStaticStr, EnumString, Clone, Copy, Debug, PartialEq, Eq)]
+use axum_enumroutes::routes;
+
+use crate::state::AppState;
+use crate::views;
+
+#[derive(Default, Clone, Copy, PartialEq, Eq)]
+pub enum Section {
+    #[default]
+    Undefined,
+}
+
+#[derive(Default, Clone, Copy)]
+pub struct EndpointProps {
+    pub section: Section,
+}
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+#[routes(state_type = Arc<AppState>, props_type = EndpointProps)]
 pub enum Endpoint {
-    // Static
-    #[strum(props(path = "/static/{file_name}"))]
+    #[get("/static/{file_name}", handler = views::static_file)]
     StaticFile,
-
-    #[strum(props(path = "/"))]
+    #[get("/", handler = views::index)]
     Index,
-
-    #[strum(props(path = "/item/{id}"))]
+    #[get("/item/{id}", handler = views::item)]
     Item,
-
-    #[strum(props(path = "/about"))]
+    #[get("/about", handler = views::about)]
     About,
 }
 
-#[derive(EnumString, Clone, Copy, PartialEq, Eq)]
-pub enum Section {}
-
 impl Endpoint {
-    pub fn path(&self) -> &'static str {
-        self.get_str("path")
-            .expect("path should exist for the endpoint")
-    }
-
-    pub fn name(&self) -> &'static str {
-        self.into()
-    }
-
     pub fn is_section(&self, section: Section) -> bool {
-        use std::str::FromStr as _;
-        self.get_str("section")
-            .is_some_and(|endpoint_section| Section::from_str(endpoint_section).unwrap() == section)
+        self.props().section == section
     }
 }
