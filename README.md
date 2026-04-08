@@ -61,7 +61,8 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Each endpoint is assigned an unique `enum` value.
   - When constructing internal links, endpoints are referred by such enum value, which makes broken internal links impossible, and simplifies moving endpoints around.
   - Endpoints can also be grouped into sections for use in website navigation.
-- Includes middleware for tracking response codes, sizes, and latency for each endpoint.
+- Includes middleware for tracking response codes, sizes, and latency for each route.
+- Includes middleware adding basic security HTTP headers, tunable from route properties.
 - Extensive integration tests support.
   - Concise HTTP endpoint tests with [axum-test](https://crates.io/crates/axum-test).
   - Migrations and fixtures support from [sqlx](https://crates.io/crates/sqlx).

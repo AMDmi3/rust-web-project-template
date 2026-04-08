@@ -32,7 +32,9 @@ pub async fn create_app(pool: PgPool) -> anyhow::Result<Router> {
 
     info!("initializing routes");
     Ok(Route::to_router_with(|router| {
-        router.layer(axum::middleware::from_fn(middleware::metrics_middleware))
+        router
+            .layer(axum::middleware::from_fn(middleware::metrics_middleware))
+            .layer(axum::middleware::from_fn(middleware::headers_middleware))
     })
     .with_state(state))
 }
