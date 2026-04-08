@@ -9,7 +9,7 @@ workspace = true
 
 [dependencies]
 anyhow = "1.0.102"
-askama = "0.15.4"
+askama = "0.15.6"
 axum = { version = "0.8.8", features = ["macros"] }
 axum-enumroutes = { git = "https://github.com/AMDmi3/axum-enumroutes", version = "0.1.0" }
 chrono = { version = "0.4.44", default-features = false, features = ["std", "now"] }
