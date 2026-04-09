@@ -262,7 +262,8 @@ dependencies = [
 [[package]]
 name = "axum-myroutes"
 version = "0.1.0"
-source = "git+https://github.com/AMDmi3/axum-myroutes#25be77bad670d4f99001ea3ddb852677cb6f8044"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "ba7062d63ca510b6a8b1e6c90536131a4ee369d1f711a342eed42deaa6ce02f2"
 dependencies = [
  "axum",
  "axum-myroutes-macros",
@@ -274,7 +275,8 @@ dependencies = [
 [[package]]
 name = "axum-myroutes-macros"
 version = "0.1.0"
-source = "git+https://github.com/AMDmi3/axum-myroutes#25be77bad670d4f99001ea3ddb852677cb6f8044"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "8d5e22a03958dbf45fd254399b1b78839235ebfcc6ae780a8f9daaf98ffe76b3"
 dependencies = [
  "itertools 0.14.0",
  "proc-macro2",
@@ -762,7 +764,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "39cab71617ae0d63f51a36d69f866391735b51691dbda63cf6f96d042b63efeb"
 dependencies = [
  "libc",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -1842,7 +1844,7 @@ version = "0.50.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7957b9740744892f114936ab4a57b3f487491bbeafaf8083688b16841a4240e5"
 dependencies = [
- "windows-sys 0.59.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -2483,7 +2485,7 @@ dependencies = [
  "errno",
  "libc",
  "linux-raw-sys",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
@@ -3041,7 +3043,7 @@ dependencies = [
  "getrandom 0.4.2",
  "once_cell",
  "rustix",
- "windows-sys 0.52.0",
+ "windows-sys 0.61.2",
 ]
 
 [[package]]
