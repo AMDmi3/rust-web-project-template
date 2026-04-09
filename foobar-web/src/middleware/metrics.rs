@@ -12,7 +12,7 @@ use metrics::{counter, histogram};
 use crate::routes::SelfRoute;
 
 pub async fn metrics_middleware(
-    route: SelfRoute,
+    route: Option<SelfRoute>,
     request: Request,
     next: Next,
 ) -> impl IntoResponse {
@@ -20,7 +20,7 @@ pub async fn metrics_middleware(
     let response = next.run(request).await;
     let latency = start.elapsed().as_secs_f64();
 
-    let route_name = route.path();
+    let route_name = route.map(|route| route.path()).unwrap_or("???");
     let status = response.status().as_u16().to_string();
 
     counter!("foobar_web_http_requests_total", "route" => route_name, "status" => status)

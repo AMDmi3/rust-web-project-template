@@ -251,7 +251,7 @@ dependencies = [
 [[package]]
 name = "axum-enumroutes"
 version = "0.1.0"
-source = "git+https://github.com/AMDmi3/axum-enumroutes#83d9181bf7e1d69a2925e46a690f1c4d619a4f0f"
+source = "git+https://github.com/AMDmi3/axum-enumroutes#cc5925ad63b5cbd3b926555a3a23df8226ed1fc9"
 dependencies = [
  "axum",
  "axum-enumroutes-macros",
@@ -263,7 +263,7 @@ dependencies = [
 [[package]]
 name = "axum-enumroutes-macros"
 version = "0.1.0"
-source = "git+https://github.com/AMDmi3/axum-enumroutes#83d9181bf7e1d69a2925e46a690f1c4d619a4f0f"
+source = "git+https://github.com/AMDmi3/axum-enumroutes#cc5925ad63b5cbd3b926555a3a23df8226ed1fc9"
 dependencies = [
  "itertools 0.14.0",
  "proc-macro2",

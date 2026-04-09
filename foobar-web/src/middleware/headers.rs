@@ -9,17 +9,20 @@ use axum::response::IntoResponse;
 use crate::routes::SelfRoute;
 
 pub async fn headers_middleware(
-    route: SelfRoute,
+    route: Option<SelfRoute>,
     request: Request,
     next: Next,
 ) -> impl IntoResponse {
+    let allow_embedding = route
+        .map(|route| route.props().allow_embedding)
+        .unwrap_or_default();
     let mut response = next.run(request).await;
 
     response.headers_mut().insert(
         "X-Content-Type-Options",
         HeaderValue::from_static("nosniff"),
     );
-    if !route.props().allow_embedding {
+    if !allow_embedding {
         response.headers_mut().insert("Content-Security-Policy", HeaderValue::from_static("default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'"));
         response
             .headers_mut()
