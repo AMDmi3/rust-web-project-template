@@ -12,7 +12,7 @@ use indoc::indoc;
 use sqlx::FromRow;
 
 use crate::result::EndpointResult;
-use crate::routes::SelfRoute;
+use crate::routes::MyRoute;
 use crate::state::AppState;
 
 #[derive(FromRow)]
@@ -25,13 +25,13 @@ struct Item {
 #[derive(Template)]
 #[template(path = "item.html")]
 struct TemplateParams<'a> {
-    route: &'a SelfRoute,
+    route: &'a MyRoute,
     item: &'a Item,
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn item(
-    route: SelfRoute,
+    route: MyRoute,
     Path(id): Path<u64>,
     State(state): State<Arc<AppState>>,
 ) -> EndpointResult {

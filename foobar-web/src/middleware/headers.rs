@@ -6,10 +6,10 @@ use axum::http::header::HeaderValue;
 use axum::middleware::Next;
 use axum::response::IntoResponse;
 
-use crate::routes::SelfRoute;
+use crate::routes::MyRoute;
 
 pub async fn headers_middleware(
-    route: Option<SelfRoute>,
+    route: Option<MyRoute>,
     request: Request,
     next: Next,
 ) -> impl IntoResponse {

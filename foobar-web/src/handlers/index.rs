@@ -11,7 +11,7 @@ use indoc::indoc;
 use sqlx::FromRow;
 
 use crate::result::EndpointResult;
-use crate::routes::SelfRoute;
+use crate::routes::MyRoute;
 use crate::state::AppState;
 
 #[derive(FromRow)]
@@ -24,12 +24,12 @@ struct Item {
 #[derive(Template)]
 #[template(path = "index.html")]
 struct TemplateParams<'a> {
-    route: &'a SelfRoute,
+    route: &'a MyRoute,
     items: &'a [Item],
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
-pub async fn index(route: SelfRoute, State(state): State<Arc<AppState>>) -> EndpointResult {
+pub async fn index(route: MyRoute, State(state): State<Arc<AppState>>) -> EndpointResult {
     let items: Vec<Item> = sqlx::query_as(indoc! {r#"
         SELECT
             id,

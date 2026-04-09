@@ -9,10 +9,10 @@ use axum::middleware::Next;
 use axum::response::IntoResponse;
 use metrics::{counter, histogram};
 
-use crate::routes::SelfRoute;
+use crate::routes::MyRoute;
 
 pub async fn metrics_middleware(
-    route: Option<SelfRoute>,
+    route: Option<MyRoute>,
     request: Request,
     next: Next,
 ) -> impl IntoResponse {

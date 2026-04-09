@@ -249,34 +249,34 @@ dependencies = [
 ]
 
 [[package]]
-name = "axum-enumroutes"
-version = "0.1.0"
-source = "git+https://github.com/AMDmi3/axum-enumroutes#cc5925ad63b5cbd3b926555a3a23df8226ed1fc9"
+name = "axum-macros"
+version = "0.5.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "604fde5e028fea851ce1d8570bbdc034bec850d157f7569d10f347d06808c05c"
 dependencies = [
- "axum",
- "axum-enumroutes-macros",
- "indexmap",
- "thiserror",
- "url-escape",
-]
-
-[[package]]
-name = "axum-enumroutes-macros"
-version = "0.1.0"
-source = "git+https://github.com/AMDmi3/axum-enumroutes#cc5925ad63b5cbd3b926555a3a23df8226ed1fc9"
-dependencies = [
- "itertools 0.14.0",
  "proc-macro2",
  "quote",
  "syn",
 ]
 
 [[package]]
-name = "axum-macros"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "604fde5e028fea851ce1d8570bbdc034bec850d157f7569d10f347d06808c05c"
+name = "axum-myroutes"
+version = "0.1.0"
+source = "git+https://github.com/AMDmi3/axum-myroutes#25be77bad670d4f99001ea3ddb852677cb6f8044"
 dependencies = [
+ "axum",
+ "axum-myroutes-macros",
+ "indexmap",
+ "thiserror",
+ "url-escape",
+]
+
+[[package]]
+name = "axum-myroutes-macros"
+version = "0.1.0"
+source = "git+https://github.com/AMDmi3/axum-myroutes#25be77bad670d4f99001ea3ddb852677cb6f8044"
+dependencies = [
+ "itertools 0.14.0",
  "proc-macro2",
  "quote",
  "syn",
@@ -903,7 +903,7 @@ dependencies = [
  "anyhow",
  "askama",
  "axum",
- "axum-enumroutes",
+ "axum-myroutes",
  "axum-test",
  "chrono",
  "cityhasher",

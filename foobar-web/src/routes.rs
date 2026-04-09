@@ -3,7 +3,7 @@
 
 use std::sync::Arc;
 
-use axum_enumroutes::routes;
+use axum_myroutes::routes;
 
 use crate::handlers;
 use crate::state::AppState;
