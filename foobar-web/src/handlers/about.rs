@@ -4,16 +4,22 @@
 use askama::Template;
 use axum::response::{Html, IntoResponse};
 
-use crate::result::EndpointResult;
+use crate::result::HandlerResult;
 use crate::routes::MyRoute;
 
 #[derive(Template)]
 #[template(path = "about.html")]
 struct TemplateParams<'a> {
-    route: &'a MyRoute,
+    my_route: &'a MyRoute,
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
-pub async fn about(route: MyRoute) -> EndpointResult {
-    Ok(Html(TemplateParams { route: &route }.render()?).into_response())
+pub async fn about(my_route: MyRoute) -> HandlerResult {
+    Ok(Html(
+        TemplateParams {
+            my_route: &my_route,
+        }
+        .render()?,
+    )
+    .into_response())
 }

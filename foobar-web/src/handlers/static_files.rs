@@ -5,7 +5,7 @@ use axum::extract::Path;
 use axum::http::{HeaderMap, HeaderValue, StatusCode, header};
 use axum::response::IntoResponse;
 
-use crate::result::EndpointResult;
+use crate::result::HandlerResult;
 use crate::static_files::STATIC_FILES;
 
 enum HttpCacheMode {
@@ -24,7 +24,7 @@ impl HttpCacheMode {
     }
 }
 
-pub fn static_file_generic(file_name: &str, headers: HeaderMap) -> EndpointResult {
+pub fn static_file_generic(file_name: &str, headers: HeaderMap) -> HandlerResult {
     let (file, cache_mode) = if let Some(file) = STATIC_FILES.by_hashed_name(file_name) {
         (file, HttpCacheMode::Infinite)
     } else if let Some(file) = STATIC_FILES.by_orig_name(file_name) {
@@ -84,6 +84,6 @@ pub fn static_file_generic(file_name: &str, headers: HeaderMap) -> EndpointResul
 }
 
 #[cfg_attr(not(coverage), tracing::instrument)]
-pub async fn static_file(Path(file_name): Path<String>, headers: HeaderMap) -> EndpointResult {
+pub async fn static_file(Path(file_name): Path<String>, headers: HeaderMap) -> HandlerResult {
     static_file_generic(&file_name, headers)
 }

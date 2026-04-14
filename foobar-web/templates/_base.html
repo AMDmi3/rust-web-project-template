@@ -15,7 +15,7 @@
 	</div>
 	<ul class="navbar-menu">
 		{%- macro navbar_link(name, target_route, section) -%}
-		{%- if route.props().section == section -%}
+		{%- if my_route.props().section == section -%}
 		<li class="navbar-item is-active"><a href="{{ target_route.url_for().build()? }}" aria-current="true">{{ name }}</a></li>
 		{%- else -%}
 		<li class="navbar-item"><a href="{{ target_route.url_for().build()? }}">{{ name }}</a></li>

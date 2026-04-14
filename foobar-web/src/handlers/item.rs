@@ -11,7 +11,7 @@ use chrono::{DateTime, Utc};
 use indoc::indoc;
 use sqlx::FromRow;
 
-use crate::result::EndpointResult;
+use crate::result::HandlerResult;
 use crate::routes::MyRoute;
 use crate::state::AppState;
 
@@ -25,16 +25,16 @@ struct Item {
 #[derive(Template)]
 #[template(path = "item.html")]
 struct TemplateParams<'a> {
-    route: &'a MyRoute,
+    my_route: &'a MyRoute,
     item: &'a Item,
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn item(
-    route: MyRoute,
+    my_route: MyRoute,
     Path(id): Path<u64>,
     State(state): State<Arc<AppState>>,
-) -> EndpointResult {
+) -> HandlerResult {
     let item: Option<Item> = sqlx::query_as(indoc! {r#"
         SELECT
             id,
@@ -53,7 +53,7 @@ pub async fn item(
 
     Ok(Html(
         TemplateParams {
-            route: &route,
+            my_route: &my_route,
             item: &item,
         }
         .render()?,
