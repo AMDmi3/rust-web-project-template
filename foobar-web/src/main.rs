@@ -1,7 +1,7 @@
 // SPDX-FileCopyrightText: Copyright 2024 Dmitry Marakasov <amdmi3@amdmi3.ru>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-use anyhow::{Context, Result};
+use anyhow::Context;
 use metrics::{counter, gauge};
 use sqlx::postgres::PgPoolOptions;
 use sqlx::{Executor, PgPool};
@@ -63,7 +63,7 @@ fn collect_tokio_runtime_metrics() {
     }
 }
 
-fn init_logging(config: &Config) -> Result<()> {
+fn init_logging(config: &Config) -> anyhow::Result<()> {
     use tracing_subscriber::Layer;
     use tracing_subscriber::filter::EnvFilter;
     use tracing_subscriber::layer::SubscriberExt;
@@ -107,7 +107,7 @@ fn init_logging(config: &Config) -> Result<()> {
     Ok(())
 }
 
-fn init_metrics(config: &Config) -> Result<()> {
+fn init_metrics(config: &Config) -> anyhow::Result<()> {
     if let Some(socket_addr) = &config.prometheus_export {
         info!("initializing prometheus exporter");
         use metrics_exporter_prometheus::{Matcher, PrometheusBuilder};
@@ -151,7 +151,7 @@ fn init_metrics(config: &Config) -> Result<()> {
     Ok(())
 }
 
-async fn init_database(config: &Config) -> Result<PgPool> {
+async fn init_database(config: &Config) -> anyhow::Result<PgPool> {
     info!("initializing database pool");
     let pool = PgPoolOptions::new()
         .after_connect(|conn, _meta| {
@@ -167,7 +167,7 @@ async fn init_database(config: &Config) -> Result<PgPool> {
     Ok(pool)
 }
 
-async fn async_main() -> Result<()> {
+async fn async_main() -> anyhow::Result<()> {
     let config = Config::parse().with_context(|| "failed to process configuration")?;
 
     init_logging(&config).with_context(|| "failed to init logging")?;
@@ -186,7 +186,7 @@ async fn async_main() -> Result<()> {
         .context("error starting HTTP server")
 }
 
-fn main() -> Result<()> {
+fn main() -> anyhow::Result<()> {
     tokio::runtime::Builder::new_multi_thread()
         .enable_all()
         .build()

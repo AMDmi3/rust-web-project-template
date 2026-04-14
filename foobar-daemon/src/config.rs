@@ -4,7 +4,7 @@
 use std::net::SocketAddr;
 use std::path::PathBuf;
 
-use anyhow::{Context, Result};
+use anyhow::Context;
 use clap::Parser;
 use serde::Deserialize;
 use url::Url;
@@ -64,7 +64,7 @@ pub struct Config {
 }
 
 impl Config {
-    pub fn parse() -> Result<Self> {
+    pub fn parse() -> anyhow::Result<Self> {
         let args = CliArgs::parse();
 
         let config: FileConfig = if let Some(path) = args.config {
