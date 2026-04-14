@@ -261,9 +261,9 @@ dependencies = [
 
 [[package]]
 name = "axum-myroutes"
-version = "0.1.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ba7062d63ca510b6a8b1e6c90536131a4ee369d1f711a342eed42deaa6ce02f2"
+checksum = "e5d7fcd45ef78290bf9f08d68182a2fb046a9166945ea9723c4c2d976c458f8f"
 dependencies = [
  "axum",
  "axum-myroutes-macros",
@@ -274,9 +274,9 @@ dependencies = [
 
 [[package]]
 name = "axum-myroutes-macros"
-version = "0.1.0"
+version = "0.2.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8d5e22a03958dbf45fd254399b1b78839235ebfcc6ae780a8f9daaf98ffe76b3"
+checksum = "147d04c5e69314eb8b35c517e0171d4d1e28f0d4942786007443076651939c53"
 dependencies = [
  "itertools 0.14.0",
  "proc-macro2",
@@ -1139,6 +1139,12 @@ dependencies = [
 ]
 
 [[package]]
+name = "hashbrown"
+version = "0.17.0"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "4f467dd6dccf739c208452f8014c75c18bb8301b050ad1cfb27153803edb0f51"
+
+[[package]]
 name = "hashlink"
 version = "0.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1464,12 +1470,12 @@ dependencies = [
 
 [[package]]
 name = "indexmap"
-version = "2.13.1"
+version = "2.14.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "45a8a2b9cb3e0b0c1803dbb0758ffac5de2f425b23c28f518faabd9d805342ff"
+checksum = "d466e9454f08e4a911e14806c24e16fba1b4c121d1ea474396f396069cf949d9"
 dependencies = [
  "equivalent",
- "hashbrown 0.16.1",
+ "hashbrown 0.17.0",
  "serde",
  "serde_core",
 ]
@@ -2185,7 +2191,7 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a56d757972c98b346a9b766e3f02746cde6dd1cd1d1d563472929fdd74bec4d"
 dependencies = [
  "anyhow",
- "itertools 0.13.0",
+ "itertools 0.14.0",
  "proc-macro2",
  "quote",
  "syn",
