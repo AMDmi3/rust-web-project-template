@@ -8,7 +8,7 @@ jobs:
   test:
     env:
       POSTGRESQL: 18
-      TARGET_PROJECT_NAME: myproj
+      TARGET_PROJECT_NAME: myproj             # removed by rename.sh
       RUSTFLAGS: -Dwarnings
     runs-on: ubuntu-latest
     steps:
