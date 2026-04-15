@@ -39,4 +39,4 @@ url-escape = "0.1.1"
 axum-test = "19.0.0"
 foobar-common = { path = "../foobar-common" }
 insta = "1.46.3"
-tidier = "0.5.5"
+tidier = "0.5.6"
