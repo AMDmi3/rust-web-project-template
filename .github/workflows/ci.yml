@@ -20,6 +20,9 @@ jobs:
           toolchain: nightly-2026-03-10
           components: rustfmt,clippy
       - uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/master' }}
+          cache-bin: "false"
       - uses: taiki-e/install-action@cargo-hack
       - name: Set up PostgreSQL
         run: |
