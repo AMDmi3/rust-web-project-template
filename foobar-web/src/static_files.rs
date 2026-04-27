@@ -28,8 +28,6 @@ pub struct StaticFiles {
     by_orig_name: HashMap<String, usize>,
 }
 
-unsafe impl Send for StaticFiles {}
-
 impl StaticFiles {
     pub fn new(dir: &'static Dir) -> Self {
         let static_files_iterator = dir
