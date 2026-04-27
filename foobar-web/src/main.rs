@@ -75,7 +75,7 @@ fn init_logging(config: &Config) -> anyhow::Result<()> {
 
     if let Some(loki_url) = &config.loki_url {
         let (layer, task) = tracing_loki::builder()
-            .label("service", "repology-webapp")?
+            .label("service", "foobar-web")?
             .build_url(loki_url.clone())
             .context("loki logging initialization failed")?;
         tokio::spawn(task);
@@ -90,7 +90,7 @@ fn init_logging(config: &Config) -> anyhow::Result<()> {
         use tracing_appender::rolling::{RollingFileAppender, Rotation};
         let logfile = RollingFileAppender::builder()
             .rotation(Rotation::DAILY)
-            .filename_prefix("repology-webapp.log")
+            .filename_prefix("foobar-web.log")
             .max_log_files(14)
             .build(log_directory)
             .context("logging initialization failed")?;
