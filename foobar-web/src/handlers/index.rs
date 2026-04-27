@@ -36,7 +36,7 @@ pub async fn index(my_route: MyRoute, State(state): State<Arc<AppState>>) -> Han
             text,
             time
         FROM items
-        ORDER BY time
+        ORDER BY time, id
     "#})
     .fetch_all(&state.pool)
     .await?;
