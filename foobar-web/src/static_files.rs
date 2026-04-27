@@ -5,6 +5,7 @@ use std::collections::HashMap;
 use std::sync::LazyLock;
 
 use anyhow::anyhow;
+use axum::body::Bytes;
 use flate2::{Compression, write::GzEncoder};
 use include_dir::{Dir, DirEntry, include_dir};
 use tracing::info;
@@ -18,7 +19,7 @@ pub struct StaticFile {
     pub name: &'static str,
     pub hashed_name: String,
     pub original_content: &'static [u8],
-    pub compressed_content: Vec<u8>,
+    pub compressed_content: Bytes,
 }
 
 pub struct StaticFiles {
@@ -76,7 +77,7 @@ impl StaticFiles {
                     name,
                     hashed_name,
                     original_content,
-                    compressed_content,
+                    compressed_content: compressed_content.into(),
                 }
             })
             .collect();
