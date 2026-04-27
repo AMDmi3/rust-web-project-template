@@ -47,40 +47,37 @@ impl StaticFiles {
             });
 
         let files: Vec<_> = static_files_iterator
-            .map(|(name, content)| {
+            .map(|(name, original_content)| {
                 let compressed_content = {
                     use std::io::Write;
                     let mut encoder = GzEncoder::new(Vec::new(), Compression::best());
                     encoder
-                        .write_all(content)
+                        .write_all(original_content)
                         .expect("compression into memory is not expected to fail");
                     encoder
                         .finish()
                         .expect("compression into memory is not expected to fail")
                 };
-                let hash: u64 = cityhasher::hash(content);
+                let hash: u64 = cityhasher::hash(original_content);
                 let (base, ext) = name
                     .rsplit_once('.')
                     .expect("static files should have extensions");
                 let hashed_name = format!("{base}.{hash:016x}.{ext}");
 
-                let file = StaticFile {
-                    name,
-                    hashed_name: hashed_name.clone(),
-                    original_content: content,
-                    compressed_content,
-                };
-
                 info!(
-                    orig_name = file.name,
-                    hashed_name = file.hashed_name,
-                    orig_size = file.original_content.len(),
-                    compressed_size = file.compressed_content.len(),
-                    "adding static file {}",
-                    file.name,
+                    orig_name = name,
+                    hashed_name = hashed_name,
+                    orig_size = original_content.len(),
+                    compressed_size = compressed_content.len(),
+                    "adding static file"
                 );
 
-                file
+                StaticFile {
+                    name,
+                    hashed_name,
+                    original_content,
+                    compressed_content,
+                }
             })
             .collect();
 
