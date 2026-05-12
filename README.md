@@ -69,6 +69,7 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Webapp may be constructed as an object and used in the tests.
   - HTML validation in tests with [tidier](https://crates.io/crates/tidier).
   - [insta](https://crates.io/crates/insta) based snapshot tests in addition to integration tests (note: `profile.dev.package.insta.opt-level = 3` recommended setting is deliberately omitted, as it doesn't seem to provide any gain).
+  - [automod](https://crates.io/crates/automod) used to simplify adding new tests
 
 ## Requirements
 
