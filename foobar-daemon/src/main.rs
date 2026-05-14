@@ -97,6 +97,7 @@ fn init_logging(config: &Config) -> anyhow::Result<()> {
         let logfile = RollingFileAppender::builder()
             .rotation(Rotation::DAILY)
             .filename_prefix("foobar-daemon.log")
+            .latest_symlink("foobar-daemon.log")
             .max_log_files(14)
             .build(log_directory)
             .context("logging initialization failed")?;
