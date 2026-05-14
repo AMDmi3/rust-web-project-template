@@ -17,7 +17,7 @@ jobs:
         run: ./rename.sh $TARGET_PROJECT_NAME # removed by rename.sh
       - uses: dtolnay/rust-toolchain@master
         with:
-          toolchain: nightly-2026-03-10
+          toolchain: nightly-2026-05-13
           components: rustfmt,clippy
       - uses: Swatinem/rust-cache@v2
         with:
