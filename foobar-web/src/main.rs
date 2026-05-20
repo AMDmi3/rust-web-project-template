@@ -8,7 +8,8 @@ use tracing::info;
 
 use foobar_web::config::Config;
 use foobar_web::create_app;
-use init::{init_database, init_logging, init_metrics};
+
+use crate::init::{init_database, init_logging, init_metrics};
 
 async fn async_main() -> anyhow::Result<()> {
     let config = Config::parse().with_context(|| "failed to process configuration")?;
