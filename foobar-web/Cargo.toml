@@ -37,7 +37,7 @@ url-escape = "0.1.1"
 
 [dev-dependencies]
 automod = "1.0.17"
-axum-test = "19.0.0"
+axum-test = "20.0.0"
 foobar-common = { path = "../foobar-common" }
 insta = "1.47.2"
 tidier = "0.5.6"
