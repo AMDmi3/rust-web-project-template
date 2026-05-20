@@ -1,18 +1,14 @@
 // SPDX-FileCopyrightText: Copyright 2025 Dmitry Marakasov <amdmi3@amdmi3.ru>
 // SPDX-License-Identifier: GPL-3.0-or-later
 
-#![feature(try_blocks)]
-
 mod config;
-
-use std::time::Duration;
+mod workers;
 
 use anyhow::Context as _;
-use indoc::indoc;
 use metrics::{counter, gauge};
 use sqlx::postgres::PgPoolOptions;
 use sqlx::{Executor, PgPool};
-use tracing::{error, info};
+use tracing::info;
 
 use crate::config::Config;
 
@@ -177,55 +173,12 @@ async fn main() -> anyhow::Result<()> {
         .await
         .context("failed to run migrations")?;
 
-    info!("running daemon");
-    let foobar_worker = {
-        let pool = pool.clone();
-        tokio::spawn(async move {
-            loop {
-                let res = try {
-                    let (num_items, random): (i64, f64) = sqlx::query_as(indoc! {"
-                        SELECT
-                            count(*), random()
-                        FROM items
-                    "})
-                    .fetch_one(&pool)
-                    .await?;
-
-                    if num_items < 10 || (num_items < 20 && random < 0.5) {
-                        let text = format!("{:x}", {
-                            use std::hash::{Hash, Hasher};
-                            let mut hasher = std::hash::DefaultHasher::new();
-                            random.to_bits().hash(&mut hasher);
-                            hasher.finish()
-                        });
-                        sqlx::query(indoc! {"
-                            INSERT INTO items(text)
-                            VALUES($1)
-                        "})
-                        .bind(&text)
-                        .execute(&pool)
-                        .await?;
-                    } else {
-                        sqlx::query(indoc! {"
-                            DELETE FROM items
-                            WHERE
-                                id = (SELECT min(id) FROM items)
-                        "})
-                        .execute(&pool)
-                        .await?;
-                    }
-                };
-
-                if let Err(error) = res {
-                    error!(%error, "error in foobar_worker");
-                }
-
-                tokio::time::sleep(Duration::from_secs(5)).await;
-            }
-        })
-    };
-
-    foobar_worker.await?;
+    info!("running workers");
+    let items_worker = workers::items::ItemsWorker::new(pool.clone());
+    tokio::join!(
+        items_worker.run(),
+        // TODO: add more workers
+    );
 
     Ok(())
 }
