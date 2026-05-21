@@ -46,16 +46,16 @@ content-length: 1729
 	</thead>
 	<tbody>
 		<tr>
-			<td class="is-center"><a href="/item/1">1</a></td>
-			<td class="is-center">Sample item foo</td>
+			<td class="is-center">1</td>
+			<td class="is-center"><a href="/item/1">Sample item foo</a></td>
 			<td class="is-center">
 				<span class="hide-on-mobile">1970-01-01</span>
 				00:00:00
 			</td>
 		</tr>
 		<tr>
-			<td class="is-center"><a href="/item/2">2</a></td>
-			<td class="is-center">Sample item bar</td>
+			<td class="is-center">2</td>
+			<td class="is-center"><a href="/item/2">Sample item bar</a></td>
 			<td class="is-center">
 				<span class="hide-on-mobile">1970-01-01</span>
 				00:00:00
