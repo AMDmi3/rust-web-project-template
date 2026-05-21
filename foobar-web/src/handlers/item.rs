@@ -7,20 +7,13 @@ use askama::Template;
 use axum::extract::{Path, State};
 use axum::http::StatusCode;
 use axum::response::{Html, IntoResponse};
-use chrono::{DateTime, Utc};
-use indoc::indoc;
-use sqlx::FromRow;
+
+use foobar_common::db::items;
+use foobar_common::models::items::Item;
 
 use crate::result::HandlerResult;
 use crate::routes::MyRoute;
 use crate::state::AppState;
-
-#[derive(FromRow)]
-struct Item {
-    id: i32,
-    text: String,
-    time: DateTime<Utc>,
-}
 
 #[derive(Template)]
 #[template(path = "item.html")]
@@ -32,22 +25,10 @@ struct TemplateParams<'a> {
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn item(
     my_route: MyRoute,
-    Path(id): Path<u64>,
+    Path(id): Path<u32>,
     State(state): State<Arc<AppState>>,
 ) -> HandlerResult {
-    let item: Option<Item> = sqlx::query_as(indoc! {r#"
-        SELECT
-            id,
-            text,
-            time
-        FROM items
-        WHERE id = $1
-    "#})
-    .bind(id as i64)
-    .fetch_optional(&state.pool)
-    .await?;
-
-    let Some(item) = item else {
+    let Some(item) = items::get_by_id(&state.pool, id.try_into()?).await? else {
         return Ok((StatusCode::NOT_FOUND, "Item not found").into_response());
     };
 

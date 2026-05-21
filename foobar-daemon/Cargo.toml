@@ -14,6 +14,7 @@ indoc = "2.0.7"
 metrics = "0.24.3"
 metrics-exporter-prometheus = { version = "0.18.1", features = ["http-listener"] }
 metrics-process = { version = "2.4.3", features = ["use-gauge-on-cpu-seconds-total"] }
+rand = "0.10.1"
 serde = { version = "1.0.228", features = ["derive"] }
 sqlx = { version = "0.8.6", features = ["runtime-tokio", "postgres", "chrono"] }
 tokio = { version = "1.52.1", features = ["macros", "rt-multi-thread"] }

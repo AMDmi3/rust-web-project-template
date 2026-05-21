@@ -6,20 +6,13 @@ use std::sync::Arc;
 use askama::Template;
 use axum::extract::State;
 use axum::response::{Html, IntoResponse};
-use chrono::{DateTime, Utc};
-use indoc::indoc;
-use sqlx::FromRow;
+
+use foobar_common::db::items;
+use foobar_common::models::items::Item;
 
 use crate::result::HandlerResult;
 use crate::routes::MyRoute;
 use crate::state::AppState;
-
-#[derive(FromRow)]
-struct Item {
-    id: i32,
-    text: String,
-    time: DateTime<Utc>,
-}
 
 #[derive(Template)]
 #[template(path = "index.html")]
@@ -30,16 +23,7 @@ struct TemplateParams<'a> {
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
 pub async fn index(my_route: MyRoute, State(state): State<Arc<AppState>>) -> HandlerResult {
-    let items: Vec<Item> = sqlx::query_as(indoc! {r#"
-        SELECT
-            id,
-            text,
-            time
-        FROM items
-        ORDER BY time, id
-    "#})
-    .fetch_all(&state.pool)
-    .await?;
+    let items = items::get_all(&state.pool).await?;
 
     Ok(Html(
         TemplateParams {

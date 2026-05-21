@@ -3,12 +3,13 @@
 
 use std::time::Duration;
 
-use indoc::indoc;
 use sqlx::PgPool;
 use tracing::error;
 
+use foobar_common::db::items;
+
 const RETRY_INTERVAL: Duration = Duration::from_mins(1);
-const ITERATION_INTERVAL: Duration = Duration::from_mins(1);
+const ITERATION_INTERVAL: Duration = Duration::from_secs(1);
 
 pub struct ItemsWorker {
     pool: PgPool,
@@ -20,36 +21,12 @@ impl ItemsWorker {
     }
 
     async fn iteration(&self) -> anyhow::Result<()> {
-        let (num_items, random): (i64, f64) = sqlx::query_as(indoc! {"
-                        SELECT
-                            count(*), random()
-                        FROM items
-                    "})
-        .fetch_one(&self.pool)
-        .await?;
+        let num_items = items::get_count(&self.pool).await?;
 
-        if num_items < 10 || (num_items < 20 && random < 0.5) {
-            let text = format!("{:x}", {
-                use std::hash::{Hash, Hasher};
-                let mut hasher = std::hash::DefaultHasher::new();
-                random.to_bits().hash(&mut hasher);
-                hasher.finish()
-            });
-            sqlx::query(indoc! {"
-                            INSERT INTO items(text)
-                            VALUES($1)
-                        "})
-            .bind(&text)
-            .execute(&self.pool)
-            .await?;
+        if num_items < 10 || (num_items < 20 && rand::random::<bool>()) {
+            items::insert_with_text(&self.pool, &format!("{:x}", rand::random::<u64>())).await?;
         } else {
-            sqlx::query(indoc! {"
-                            DELETE FROM items
-                            WHERE
-                                id = (SELECT min(id) FROM items)
-                        "})
-            .execute(&self.pool)
-            .await?;
+            items::remove_oldest(&self.pool).await?;
         }
 
         Ok(())
