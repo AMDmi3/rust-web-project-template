@@ -34,10 +34,11 @@ async fn main() -> anyhow::Result<()> {
 
     info!("running workers");
     let items_worker = workers::items::ItemsWorker::new(pool.clone());
-    tokio::join!(
+    tokio::try_join!(
         items_worker.run(),
         // TODO: add more workers
-    );
+    )
+    .context("worker finished with error")?;
 
     Ok(())
 }

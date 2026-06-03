@@ -32,7 +32,7 @@ impl ItemsWorker {
         Ok(())
     }
 
-    pub async fn run(&self) {
+    pub async fn run(&self) -> anyhow::Result<()> {
         loop {
             match self.iteration().await {
                 Err(error) => {
