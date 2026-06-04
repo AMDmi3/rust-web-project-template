@@ -12,7 +12,7 @@ clap = { version = "4.6.1", features = ["derive"] }
 foobar-common = { path = "../foobar-common" }
 indoc = "2.0.7"
 metrics = "0.24.6"
-metrics-exporter-prometheus = { version = "0.18.1", features = ["http-listener"] }
+metrics-exporter-prometheus = { version = "0.18.3", features = ["http-listener"] }
 metrics-process = { version = "2.4.3", features = ["use-gauge-on-cpu-seconds-total"] }
 rand = "0.10.1"
 serde = { version = "1.0.228", features = ["derive"] }
