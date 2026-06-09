@@ -1,0 +1,43 @@
+name: Latest dependencies
+on:
+  schedule:
+    - cron: "0 0 * * 1"
+jobs:
+  test:
+    env:
+      POSTGRESQL: 18
+      TARGET_PROJECT_NAME: myproj             # removed by rename.sh
+      RUSTFLAGS: -Dwarnings
+      CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS: allow
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Run rename script               # removed by rename.sh
+        run: ./rename.sh $TARGET_PROJECT_NAME # removed by rename.sh
+      - uses: dtolnay/rust-toolchain@master
+        with:
+          toolchain: nightly-2026-05-27
+      - uses: Swatinem/rust-cache@v2
+        with:
+          save-if: ${{ github.ref == 'refs/heads/master' }}
+          cache-bin: "false"
+      - name: Set up PostgreSQL
+        run: |
+          sudo systemctl stop postgresql
+          sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
+          sudo apt install postgresql-$POSTGRESQL
+          sudo pg_createcluster $POSTGRESQL main
+          sudo sed -i -e 's|5433|5432|' /etc/postgresql/$POSTGRESQL/main/postgresql.conf
+          sudo sed -i -e '/^local/ s|peer|trust|' /etc/postgresql/$POSTGRESQL/main/pg_hba.conf
+          sudo pg_ctlcluster $POSTGRESQL main start
+      - name: Init the database
+        run: |
+          psql --username postgres -c "CREATE DATABASE $TARGET_PROJECT_NAME"
+          psql --username postgres -c "CREATE USER $TARGET_PROJECT_NAME WITH PASSWORD '$TARGET_PROJECT_NAME'"
+          psql --username postgres -c "GRANT ALL ON DATABASE $TARGET_PROJECT_NAME TO $TARGET_PROJECT_NAME"
+      - name: Update dependencies
+        run: cargo update
+      - name: Test
+        run: cargo test
+        env:
+          DATABASE_URL: postgres:///?user=postgres
