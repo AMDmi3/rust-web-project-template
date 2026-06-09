@@ -17,10 +17,6 @@ jobs:
       - uses: dtolnay/rust-toolchain@master
         with:
           toolchain: nightly-2026-05-27
-      - uses: Swatinem/rust-cache@v2
-        with:
-          save-if: ${{ github.ref == 'refs/heads/master' }}
-          cache-bin: "false"
       - name: Set up PostgreSQL
         run: |
           sudo systemctl stop postgresql
