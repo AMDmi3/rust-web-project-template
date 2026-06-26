@@ -12,7 +12,7 @@ anyhow = "1.0.102"
 askama = "0.16.0"
 axum = { version = "0.8.9", features = ["macros"] }
 axum-myroutes = { version = "0.2.2", default-features = false }
-chrono = { version = "0.4.44", default-features = false, features = ["std", "now"] }
+chrono = { version = "0.4.45", default-features = false, features = ["std", "now"] }
 cityhasher = "0.1.0"
 clap = { version = "4.6.1", features = ["derive"] }
 flate2 = "1.1.9"
@@ -39,5 +39,5 @@ url-escape = "0.1.1"
 [dev-dependencies]
 automod = "1.0.17"
 axum-test = "19.0.0"
-insta = "1.47.2"
+insta = "1.48.0"
 tidier = "0.5.6"
