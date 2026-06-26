@@ -11,7 +11,7 @@ jobs:
       CARGO_RESOLVER_INCOMPATIBLE_RUST_VERSIONS: allow
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v6
+      - uses: actions/checkout@v7
       - name: Run rename script               # removed by rename.sh
         run: ./rename.sh $TARGET_PROJECT_NAME # removed by rename.sh
       - uses: dtolnay/rust-toolchain@master
