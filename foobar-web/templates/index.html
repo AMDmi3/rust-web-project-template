@@ -17,8 +17,8 @@
 			<td class="is-center">{{ item.id }}</td>
 			<td class="is-center"><a href="{{ crate::routes::Route::Item.url_for().path_param("id", item.id)?.build()? }}">{{ item.text }}</a></td>
 			<td class="is-center">
-				<span class="hide-on-mobile">{{ item.time.format("%Y-%m-%d") }}</span>
-				{{ item.time.format("%H:%M:%S") }}
+				<span class="hide-on-mobile">{{ item.time.format(time::macros::format_description!("[year]-[month]-[day]")).unwrap() }}</span>
+				{{ item.time.format(time::macros::format_description!("[hour]:[minute]:[second]")).unwrap() }}
 			</td>
 		</tr>
 		{%- endfor %}

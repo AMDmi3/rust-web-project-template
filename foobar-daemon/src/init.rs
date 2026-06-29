@@ -5,7 +5,7 @@ use anyhow::Context as _;
 use metrics::{counter, gauge};
 use sqlx::postgres::PgPoolOptions;
 use sqlx::{Executor, PgPool};
-use tracing::info;
+use tracing::{info, warn};
 
 use crate::config::Config;
 
@@ -81,9 +81,20 @@ pub fn init_logging(config: &Config) -> anyhow::Result<()> {
         layers.push(layer.boxed());
     }
 
-    let layer = tracing_subscriber::fmt::Layer::new().with_timer(
-        tracing_subscriber::fmt::time::ChronoLocal::new(String::from("%F %T%.6f")),
-    );
+    let layer = {
+        let utc_offset = time::UtcOffset::current_local_offset().unwrap_or_else(|err| {
+            warn!(?err, "cannot determine local UTC offset");
+            time::UtcOffset::UTC
+        });
+
+        let time_format = time::macros::format_description!(
+            "[year]-[month]-[day] [hour]:[minute]:[second].[subsecond digits:6]"
+        );
+
+        tracing_subscriber::fmt::Layer::new().with_timer(
+            tracing_subscriber::fmt::time::OffsetTime::new(utc_offset, time_format),
+        )
+    };
 
     if let Some(log_directory) = &config.log_directory {
         use tracing_appender::rolling::{RollingFileAppender, Rotation};

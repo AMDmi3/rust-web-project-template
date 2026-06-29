@@ -6,7 +6,7 @@
 <ul>
 	<li><strong>ID:</strong> {{ item.id }}</li>
 	<li><strong>Text:</strong> {{ item.text }}</li>
-	<li><strong>Time:</strong> {{ item.time.format("%Y-%m-%d") }}</li>
+	<li><strong>Time:</strong> {{ item.time.format(time::macros::format_description!("[year]-[month]-[day]")).unwrap() }}</li>
 </ul>
 
 {% endblock content %}
