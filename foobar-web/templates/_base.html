@@ -11,7 +11,7 @@
 <header class="header"><div class="container">
 <nav class="navbar">
 	<div class="navbar-brand">
-		<strong>Foobar Demo</strong>
+		<a href="{{ crate::routes::Route::Index.url_for().build()? }}"><strong>Foobar Demo</strong></a>
 	</div>
 	<ul class="navbar-menu">
 		{%- macro navbar_link(name, target_route, section) -%}

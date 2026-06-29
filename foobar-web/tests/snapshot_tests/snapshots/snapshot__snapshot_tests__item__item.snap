@@ -7,7 +7,7 @@ content-type: text/html; charset=utf-8
 x-content-type-options: nosniff
 content-security-policy: default-src 'none'; style-src 'self'; script-src 'self'; img-src 'self'; font-src 'self'; frame-ancestors 'none'; base-uri 'none'; form-action 'self'
 x-frame-options: DENY
-content-length: 1267
+content-length: 1283
 
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +22,7 @@ content-length: 1267
 <header class="header"><div class="container">
 <nav class="navbar">
 	<div class="navbar-brand">
-		<strong>Foobar Demo</strong>
+		<a href="/"><strong>Foobar Demo</strong></a>
 	</div>
 	<ul class="navbar-menu">
 		<li class="navbar-item is-active"><a href="/" aria-current="true">Items</a></li>
