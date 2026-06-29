@@ -24,15 +24,22 @@ pub struct RouteProps {
     pub allow_embedding: bool,
 }
 
+impl RouteProps {
+    fn section(mut self, section: Section) -> Self {
+        self.section = section;
+        self
+    }
+}
+
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 #[routes(state_type = Arc<AppState>, props_type = RouteProps)]
 pub enum Route {
     #[get("/static/{file_name}", handler = handlers::static_file)]
     StaticFile,
-    #[get("/", handler = handlers::index, props = RouteProps { section: Section::Items, ..Default::default() })]
+    #[get("/", handler = handlers::index, props = RouteProps::default().section(Section::Items) )]
     Index,
-    #[get("/item/{id}", handler = handlers::item, props = RouteProps { section: Section::Items, ..Default::default() })]
+    #[get("/item/{id}", handler = handlers::item, props = RouteProps::default().section(Section::Items) )]
     Item,
-    #[get("/about", handler = handlers::about, props = RouteProps { section: Section::Docs, ..Default::default() })]
+    #[get("/about", handler = handlers::about, props = RouteProps::default().section(Section::Docs) )]
     About,
 }
