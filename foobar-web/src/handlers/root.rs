@@ -15,14 +15,14 @@ use crate::routes::MyRoute;
 use crate::state::AppState;
 
 #[derive(Template)]
-#[template(path = "index.html")]
+#[template(path = "root.html")]
 struct TemplateParams<'a> {
     my_route: &'a MyRoute,
     items: &'a [Item],
 }
 
 #[cfg_attr(not(coverage), tracing::instrument(skip_all))]
-pub async fn index(my_route: MyRoute, State(state): State<Arc<AppState>>) -> HandlerResult {
+pub async fn root(my_route: MyRoute, State(state): State<Arc<AppState>>) -> HandlerResult {
     let items = items::get_all(&state.pool).await?;
 
     Ok(Html(

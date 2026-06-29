@@ -36,8 +36,8 @@ impl RouteProps {
 pub enum Route {
     #[get("/static/{file_name}", handler = handlers::static_file)]
     StaticFile,
-    #[get("/", handler = handlers::index, props = RouteProps::default().section(Section::Items) )]
-    Index,
+    #[get("/", handler = handlers::root, props = RouteProps::default().section(Section::Items) )]
+    Root,
     #[get("/item/{id}", handler = handlers::item, props = RouteProps::default().section(Section::Items) )]
     Item,
     #[get("/about", handler = handlers::about, props = RouteProps::default().section(Section::Docs) )]

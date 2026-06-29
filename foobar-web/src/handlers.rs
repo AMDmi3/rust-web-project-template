@@ -2,11 +2,11 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 
 mod about;
-mod index;
 mod item;
+mod root;
 mod static_files;
 
 pub use about::*;
-pub use index::*;
 pub use item::*;
+pub use root::*;
 pub use static_files::*;
