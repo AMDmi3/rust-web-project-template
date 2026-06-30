@@ -47,10 +47,19 @@ find . -depth -name "*$placeholder_name*" | grep -v '^\./target' | while read pa
 	mv "$path" "$(echo "$path" | sed -e "s|$placeholder_name|$target_name|")"
 done
 
+SED_PROGRAM="
+	s|$placeholder_name|$target_name|g;
+	s|\$TARGET_PROJECT_NAME|$target_name|g;
+	s|rust-web-project-template|$target_name|g;
+	/^## Features/,/^## Requirements/ { /^## Requirements/!d };
+	/^0\\./,/^1\\./ { /^1\\./!d };
+	/removed by rename.sh/ d
+"
+
 find . -type f | grep -v '^./target' | while read path; do
 	if [ $sed = bsd ]; then
-		sed -i '' -e "s|$placeholder_name|$target_name|g; s|\$TARGET_PROJECT_NAME|$target_name|g; /removed by rename.sh/ d" "$path"
+		sed -i '' -e "$SED_PROGRAM" "$path"
 	else
-		sed -i -e "s|$placeholder_name|$target_name|g; s|\$TARGET_PROJECT_NAME|$target_name|g; /removed by rename.sh/ d" "$path"
+		sed -i -e "$SED_PROGRAM" "$path"
 	fi
 done
