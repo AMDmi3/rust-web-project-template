@@ -51,6 +51,7 @@ SED_PROGRAM="
 	s|$placeholder_name|$target_name|g;
 	s|\$TARGET_PROJECT_NAME|$target_name|g;
 	s|rust-web-project-template|$target_name|g;
+	s|Foobar Demo|$target_name|g;
 	/^## Features/,/^## Requirements/ { /^## Requirements/!d };
 	/^0\\./,/^1\\./ { /^1\\./!d };
 	/removed by rename.sh/ d
