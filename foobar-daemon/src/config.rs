@@ -29,6 +29,10 @@ pub struct CliArgs {
     #[arg(short = 'd', long = "dsn", value_name = "DSN")]
     dsn: Option<String>,
 
+    /// Do not run database schema migrations
+    #[arg(long)]
+    skip_migrations: bool,
+
     /// Path to log directory
     ///
     /// When specified, output is redirected to a log file in the
@@ -53,6 +57,7 @@ struct FileConfig {
     log_directory: Option<PathBuf>,
     loki_url: Option<Url>,
     prometheus_export: Option<SocketAddr>,
+    skip_migrations: bool,
 }
 
 #[derive(Debug)]
@@ -61,6 +66,7 @@ pub struct Config {
     pub log_directory: Option<PathBuf>,
     pub loki_url: Option<Url>,
     pub prometheus_export: Option<SocketAddr>,
+    pub skip_migrations: bool,
 }
 
 impl Config {
@@ -92,6 +98,7 @@ impl Config {
             log_directory: args.log_directory.or(config.log_directory),
             loki_url: args.loki_url.or(config.loki_url),
             prometheus_export: args.prometheus_export.or(config.prometheus_export),
+            skip_migrations: args.skip_migrations || config.skip_migrations,
         })
     }
 }

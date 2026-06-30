@@ -21,16 +21,19 @@ async fn main() -> anyhow::Result<()> {
         .await
         .with_context(|| "failed to init database")?;
 
-    info!("running migrations");
-    sqlx::query("CREATE SCHEMA IF NOT EXISTS foobar")
-        .execute(&pool)
-        .await
-        .context("failed to create schema")?;
+    if !config.skip_migrations {
+        info!("running migrations");
 
-    foobar_common::MIGRATOR
-        .run(&pool)
-        .await
-        .context("failed to run migrations")?;
+        sqlx::query("CREATE SCHEMA IF NOT EXISTS foobar")
+            .execute(&pool)
+            .await
+            .context("failed to create schema")?;
+
+        foobar_common::MIGRATOR
+            .run(&pool)
+            .await
+            .context("failed to run migrations")?;
+    }
 
     info!("running workers");
     let items_worker = workers::items::ItemsWorker::new(pool.clone());
