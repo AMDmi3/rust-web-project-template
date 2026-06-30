@@ -20,6 +20,20 @@ async fn async_main() -> anyhow::Result<()> {
         .await
         .with_context(|| "failed to init database")?;
 
+    if !config.skip_migrations {
+        info!("running migrations");
+
+        sqlx::query("CREATE SCHEMA IF NOT EXISTS foobar")
+            .execute(&pool)
+            .await
+            .context("failed to create schema")?;
+
+        foobar_common::MIGRATOR
+            .run(&pool)
+            .await
+            .context("failed to run migrations")?;
+    }
+
     info!("initializing application");
     let app = create_app(pool).await?;
 
