@@ -30,7 +30,7 @@ if [ -z "${GITHUB_ACTIONS:-}" ]; then
 
 	echo "This command will re-init git repository in this directory (removing all git history)" 1>&2
 	echo "and rename all '$placeholder_name' instances (in file names or the code) to '$target_name'" 1>&2
-	echo -n "Is this OK [y/n]? " 1>&2
+	echo -n "Is this OK [y/N]? " 1>&2
 	read answer
 	if [ "$answer" != 'y' -a "$answer" != 'Y' ]; then
 		echo "Rename cancelled" 1>&2
