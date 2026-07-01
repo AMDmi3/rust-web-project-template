@@ -86,15 +86,11 @@ impl Config {
             Default::default()
         };
 
-        let dsn = args
-            .dsn
-            .as_deref()
-            .or(config.dsn.as_deref())
-            .unwrap_or(DEFAULT_DSN)
-            .to_string();
-
         Ok(Config {
-            dsn,
+            dsn: args
+                .dsn
+                .or(config.dsn)
+                .unwrap_or_else(|| DEFAULT_DSN.to_string()),
             log_directory: args.log_directory.or(config.log_directory),
             loki_url: args.loki_url.or(config.loki_url),
             prometheus_export: args.prometheus_export.or(config.prometheus_export),
