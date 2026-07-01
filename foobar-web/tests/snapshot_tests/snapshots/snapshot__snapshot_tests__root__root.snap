@@ -1,5 +1,5 @@
 ---
-source: foobar-web/tests/snapshot_tests/index.rs
+source: foobar-web/tests/snapshot_tests/root.rs
 expression: "server.get(\"/\").await"
 ---
 HTTP/1.1 200 OK
