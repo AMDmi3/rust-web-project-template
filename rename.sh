@@ -43,7 +43,7 @@ fi
 rm -rf .git
 rm rename.sh
 
-find . -depth -name "*$placeholder_name*" | grep -v '^\./target' | while read path; do
+find . -depth -name "*$placeholder_name*" | grep -v '^\./target' | grep -v '^\./\.git' | while read path; do
 	mv "$path" "$(echo "$path" | sed -e "s|$placeholder_name|$target_name|")"
 done
 
@@ -56,7 +56,7 @@ SED_PROGRAM="
 	/removed by rename.sh/ d
 "
 
-find . -type f | grep -v '^./target' | while read path; do
+find . -type f | grep -v '^\./target' | grep -v '^\./\.git' | while read path; do
 	if [ $sed = bsd ]; then
 		sed -i '' -e "$SED_PROGRAM" "$path"
 	else
