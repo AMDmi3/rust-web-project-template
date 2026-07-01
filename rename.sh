@@ -18,7 +18,7 @@ else
 	exit 1
 fi
 
-placeholder_name="foobar"
+placeholder_name="ruwete"
 target_name="$1"
 
 if [ -z "${GITHUB_ACTIONS:-}" ]; then

@@ -89,9 +89,9 @@ This code requires latest Rust-nightly.
    (note that you likely want stronger password for production usage)
 
    ```
-   sudo -u postgres psql -c "CREATE DATABASE foobar"
-   sudo -u postgres psql -c "CREATE USER foobar WITH PASSWORD 'foobar'"
-   sudo -u postgres psql -c "GRANT ALL ON DATABASE foobar TO foobar"
+   sudo -u postgres psql -c "CREATE DATABASE ruwete"
+   sudo -u postgres psql -c "CREATE USER ruwete WITH PASSWORD 'ruwete'"
+   sudo -u postgres psql -c "GRANT ALL ON DATABASE ruwete TO ruwete"
    ```
 
 2. Run the daemon
@@ -99,13 +99,13 @@ This code requires latest Rust-nightly.
    (note that you DSN may vary depending on postgresql settings)
 
    ```
-   cargo run --bin foobar-daemon -- --dsn postgresql://foobar:foobar@localhost/foobar
+   cargo run --bin ruwete-daemon -- --dsn postgresql://ruwete:ruwete@localhost/ruwete
    ```
 
 3. Run the webapp
 
    ```
-   cargo run --bin foobar-web -- --dsn postgresql://foobar:foobar@localhost/foobar --listen 127.0.0.1:3000
+   cargo run --bin ruwete-web -- --dsn postgresql://ruwete:ruwete@localhost/ruwete --listen 127.0.0.1:3000
    ```
 
 ## Author

@@ -1,0 +1,13 @@
+[package]
+name = "ruwete-common"
+version = "0.1.0"
+edition.workspace = true
+rust-version.workspace = true
+
+[lints]
+workspace = true
+
+[dependencies]
+indoc = "2.0.7"
+sqlx = { version = "0.9.0", default-features = false, features = ["macros", "migrate", "postgres", "time"] }
+time = "0.3.51"

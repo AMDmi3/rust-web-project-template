@@ -897,76 +897,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "77ce24cb58228fbb8aa041425bb1050850ac19177686ea6e0f41a70416f56fdb"
 
 [[package]]
-name = "foobar-common"
-version = "0.1.0"
-dependencies = [
- "indoc",
- "sqlx",
- "time",
-]
-
-[[package]]
-name = "foobar-daemon"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "clap",
- "foobar-common",
- "indoc",
- "metrics",
- "metrics-exporter-prometheus",
- "metrics-process",
- "rand 0.10.1",
- "serde",
- "sqlx",
- "time",
- "tokio",
- "toml",
- "tracing",
- "tracing-appender",
- "tracing-loki",
- "tracing-subscriber",
- "url",
-]
-
-[[package]]
-name = "foobar-web"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "askama",
- "automod",
- "axum",
- "axum-myroutes",
- "axum-test",
- "cityhasher",
- "clap",
- "flate2",
- "foobar-common",
- "include_dir",
- "indexmap",
- "indoc",
- "insta",
- "metrics",
- "metrics-exporter-prometheus",
- "metrics-process",
- "mime",
- "serde",
- "sqlx",
- "tidier",
- "time",
- "tokio",
- "toml",
- "tower-cookies",
- "tracing",
- "tracing-appender",
- "tracing-loki",
- "tracing-subscriber",
- "url",
- "url-escape",
-]
-
-[[package]]
 name = "foreign-types"
 version = "0.3.2"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2505,6 +2435,76 @@ name = "rustversion"
 version = "1.0.22"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b39cdef0fa800fc44525c84ccb54a029961a8215f9619753635a9c0d2538d46d"
+
+[[package]]
+name = "ruwete-common"
+version = "0.1.0"
+dependencies = [
+ "indoc",
+ "sqlx",
+ "time",
+]
+
+[[package]]
+name = "ruwete-daemon"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "clap",
+ "indoc",
+ "metrics",
+ "metrics-exporter-prometheus",
+ "metrics-process",
+ "rand 0.10.1",
+ "ruwete-common",
+ "serde",
+ "sqlx",
+ "time",
+ "tokio",
+ "toml",
+ "tracing",
+ "tracing-appender",
+ "tracing-loki",
+ "tracing-subscriber",
+ "url",
+]
+
+[[package]]
+name = "ruwete-web"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "askama",
+ "automod",
+ "axum",
+ "axum-myroutes",
+ "axum-test",
+ "cityhasher",
+ "clap",
+ "flate2",
+ "include_dir",
+ "indexmap",
+ "indoc",
+ "insta",
+ "metrics",
+ "metrics-exporter-prometheus",
+ "metrics-process",
+ "mime",
+ "ruwete-common",
+ "serde",
+ "sqlx",
+ "tidier",
+ "time",
+ "tokio",
+ "toml",
+ "tower-cookies",
+ "tracing",
+ "tracing-appender",
+ "tracing-loki",
+ "tracing-subscriber",
+ "url",
+ "url-escape",
+]
 
 [[package]]
 name = "ryu"

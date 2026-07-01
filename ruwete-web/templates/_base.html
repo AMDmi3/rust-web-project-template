@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>{% block title %}ruwete{% endblock %}</title>
+	<link rel="stylesheet" href="{{ crate::static_files::url_for_static("amdmi3.min.css")? }}">
+</head>
+<body>
+
+<header class="header"><div class="container">
+<nav class="navbar">
+	<div class="navbar-brand">
+		<a href="{{ crate::routes::Route::Root.url_for().build()? }}"><strong>ruwete</strong></a>
+	</div>
+	<ul class="navbar-menu">
+		{%- macro navbar_link(name, target_route, section) -%}
+		{%- if my_route.props().section == section -%}
+		<li class="navbar-item is-active"><a href="{{ target_route.url_for().build()? }}" aria-current="true">{{ name }}</a></li>
+		{%- else -%}
+		<li class="navbar-item"><a href="{{ target_route.url_for().build()? }}">{{ name }}</a></li>
+		{%- endif -%}
+		{%- endmacro %}
+		{{ navbar_link("Items", crate::routes::Route::Root, crate::routes::Section::Items) }}
+		{{ navbar_link("About", crate::routes::Route::About, crate::routes::Section::Docs) }}
+	</ul>
+</nav>
+</div></header>
+
+<main class="main"><div class="container">
+
+{% block pageheader %}<h1>{% block header %}{% endblock %}</h1>{% endblock %}
+{% block content %}{% endblock %}
+</div></main>
+
+<footer class="footer"><div class="container">
+<div class="columns is-auto-width">
+	<div class="column">
+		Copyright (C) Dmitry Marakasov
+	</div>
+	<div class="column is-center">
+		Code licensed under GPLv3+
+	</div>
+	<div class="column is-right">
+		GitHub
+		<a href="https://github.com/AMDmi3/ruwete">repository</a>,
+		<a href="https://github.com/AMDmi3/ruwete/issues">issues</a>
+	</div>
+</div>
+</div></footer>
+
+</body>
+</html>

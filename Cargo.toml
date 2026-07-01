@@ -1,5 +1,5 @@
 [workspace]
-members = ["foobar-web", "foobar-daemon", "foobar-common"]
+members = ["ruwete-web", "ruwete-daemon", "ruwete-common"]
 resolver = "3"
 
 [workspace.package]
