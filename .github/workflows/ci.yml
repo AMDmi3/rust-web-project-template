@@ -8,7 +8,7 @@ env:
   POSTGRESQL: 18
   TARGET_PROJECT_NAME: myproj                 # removed by rename.sh
   RUSTFLAGS: -Dwarnings
-  RUST: nightly-2026-05-27
+  RUST: nightly-2026-06-30
 jobs:
   check:
     runs-on: ubuntu-latest
