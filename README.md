@@ -20,6 +20,7 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Support for logging to files.
     - Local timezone for timestamps.
     - Daily rotation (though it's not affected by the timezone yet).
+    - Target (module path) removed from the log due to uselessness.
   - Support for shipping logs to Grafana Loki.
 - Metrics collection.
   - [metrics](https://crates.io/crates/metrics) support with Prometheus export.

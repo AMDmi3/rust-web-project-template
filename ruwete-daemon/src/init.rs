@@ -91,9 +91,12 @@ pub fn init_logging(config: &Config) -> anyhow::Result<()> {
             "[year]-[month]-[day] [hour]:[minute]:[second].[subsecond digits:6]"
         );
 
-        tracing_subscriber::fmt::Layer::new().with_timer(
-            tracing_subscriber::fmt::time::OffsetTime::new(utc_offset, time_format),
-        )
+        tracing_subscriber::fmt::Layer::new()
+            .with_target(false)
+            .with_timer(tracing_subscriber::fmt::time::OffsetTime::new(
+                utc_offset,
+                time_format,
+            ))
     };
 
     if let Some(log_directory) = &config.log_directory {
