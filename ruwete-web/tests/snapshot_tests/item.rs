@@ -9,11 +9,11 @@ use ruwete_web::create_app;
 #[sqlx::test(migrator = "ruwete_common::MIGRATOR", fixtures("sample_items"))]
 async fn test_item(pool: PgPool) {
     let server = TestServer::new(create_app(pool).await.unwrap());
-    insta::assert_snapshot!(server.get("/item/1").await);
+    assert_snapshot!(server.get("/item/1").await);
 }
 
 #[sqlx::test(migrator = "ruwete_common::MIGRATOR", fixtures("sample_items"))]
 async fn test_item_not_found(pool: PgPool) {
     let server = TestServer::new(create_app(pool).await.unwrap());
-    insta::assert_snapshot!(server.get("/item/999").await);
+    assert_snapshot!(server.get("/item/999").await);
 }

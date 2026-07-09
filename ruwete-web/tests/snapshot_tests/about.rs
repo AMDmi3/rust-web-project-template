@@ -9,5 +9,5 @@ use ruwete_web::create_app;
 #[sqlx::test(migrator = "ruwete_common::MIGRATOR")]
 async fn test_about(pool: PgPool) {
     let server = TestServer::new(create_app(pool).await.unwrap());
-    insta::assert_snapshot!(server.get("/about").await);
+    assert_snapshot!(server.get("/about").await);
 }

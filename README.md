@@ -69,7 +69,9 @@ services like [Repology](https://github.com/repology/repology-rs).
   - Migrations and fixtures support from [sqlx](https://crates.io/crates/sqlx).
   - Webapp may be constructed as an object and used in the tests.
   - HTML validation in tests with [tidier](https://crates.io/crates/tidier).
-  - [insta](https://crates.io/crates/insta) based snapshot tests in addition to integration tests (note: `profile.dev.package.insta.opt-level = 3` recommended setting is deliberately omitted, as it doesn't seem to provide any gain).
+  - [insta](https://crates.io/crates/insta) based snapshot tests in addition to integration tests.
+    - (Note: `profile.dev.package.insta.opt-level = 3` recommended setting is deliberately omitted, as it doesn't seem to provide any gain).
+    - Filters feature of `insta` is used to prevent static file hash changes from invalidating snapshots.
   - [automod](https://crates.io/crates/automod) used to simplify adding new tests
 
 ## Requirements

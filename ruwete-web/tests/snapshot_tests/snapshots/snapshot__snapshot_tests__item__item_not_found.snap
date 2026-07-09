@@ -1,6 +1,6 @@
 ---
 source: ruwete-web/tests/snapshot_tests/item.rs
-expression: "server.get(\"/item/999\").await"
+description: "GET http://localhost/item/999"
 ---
 HTTP/1.1 404 Not Found
 content-type: text/plain; charset=utf-8

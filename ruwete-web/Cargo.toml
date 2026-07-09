@@ -39,5 +39,5 @@ url-escape = "0.1.1"
 [dev-dependencies]
 automod = "1.0.17"
 axum-test = "19.0.0"
-insta = "1.48.0"
+insta = { version = "1.48.0", features = ["filters"] }
 tidier = "0.5.6"
