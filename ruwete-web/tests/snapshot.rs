@@ -6,7 +6,7 @@ macro_rules! assert_snapshot {
         let response = $what;
         insta::with_settings!({
             filters => vec![
-                (r#"("/static/.*\.)[0-9a-f]{16}(\..*")"#, "$1[hash]$2"),
+                (r#"("/static/.*\.)[0-9a-f]{16}(\..*")"#, "$1[     hash     ]$2"),
             ],
             description => format!("{:?} {}", response.request_method(), response.request_url()),
             omit_expression => true,
