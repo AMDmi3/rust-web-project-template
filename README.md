@@ -117,4 +117,4 @@ This code requires latest Rust-nightly.
 
 ## License
 
-- [GPLv3 or later](LICENSE).
+- [MIT](COPYING-MIT) OR [Apache-2.0](COPYING-APACHE)
