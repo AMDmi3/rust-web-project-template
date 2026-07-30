@@ -36,7 +36,10 @@ impl ItemsWorker {
         loop {
             match self.iteration().await {
                 Err(error) => {
-                    error!(error = format_args!("{:#}", error), "failure in worker iteration");
+                    error!(
+                        error = format_args!("{:#}", error),
+                        "failure in worker iteration"
+                    );
                     tokio::time::sleep(RETRY_INTERVAL).await;
                 }
                 Ok(()) => {
