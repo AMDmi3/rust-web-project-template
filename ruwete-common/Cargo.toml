@@ -10,4 +10,4 @@ workspace = true
 [dependencies]
 indoc = "2.0.7"
 sqlx = { version = "0.9.0", default-features = false, features = ["macros", "migrate", "postgres", "time"] }
-time = "0.3.51"
+time = "0.3.53"
