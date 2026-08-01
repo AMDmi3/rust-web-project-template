@@ -99,7 +99,7 @@ This code requires latest Rust-nightly.
 
 2. Run the daemon
 
-   (note that you DSN may vary depending on postgresql settings)
+   (note that your DSN may vary depending on postgresql settings)
 
    ```
    cargo run --bin ruwete-daemon -- --dsn postgresql://ruwete:ruwete@localhost/ruwete

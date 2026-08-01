@@ -57,11 +57,11 @@ jobs:
         run: cargo build
       - name: Run the daemon
         run: |
-          # only timeout is condidered success here, any early exit is a failure
+          # only timeout is considered success here, any early exit is a failure
           timeout 2s cargo run --bin $TARGET_PROJECT_NAME-daemon -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME && exit 1 || [ $? -eq 124 ]
       - name: Run the webapp
         run: |
-          # only timeout is condidered success here, any early exit is a failure
+          # only timeout is considered success here, any early exit is a failure
           timeout 2s cargo run --bin $TARGET_PROJECT_NAME-web -- --dsn postgresql://$TARGET_PROJECT_NAME:$TARGET_PROJECT_NAME@localhost/$TARGET_PROJECT_NAME --listen 127.0.0.1:3000 && exit 1 || [ $? -eq 124 ]
   build-crates:
     runs-on: ubuntu-latest
