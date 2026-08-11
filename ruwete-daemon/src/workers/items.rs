@@ -21,13 +21,17 @@ impl ItemsWorker {
     }
 
     async fn iteration(&self) -> anyhow::Result<()> {
-        let num_items = items::get_count(&self.pool).await?;
+        let mut tx = self.pool.begin().await?;
+
+        let num_items = items::get_count(&mut tx).await?;
 
         if num_items < 10 || (num_items < 20 && rand::random::<bool>()) {
-            items::insert_with_text(&self.pool, &format!("{:x}", rand::random::<u64>())).await?;
+            items::insert_with_text(&mut tx, &format!("{:x}", rand::random::<u64>())).await?;
         } else {
-            items::remove_oldest(&self.pool).await?;
+            items::remove_oldest(&mut tx).await?;
         }
+
+        tx.commit().await?;
 
         Ok(())
     }
