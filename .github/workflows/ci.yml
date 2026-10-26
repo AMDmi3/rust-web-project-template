@@ -44,6 +44,7 @@ jobs:
           sudo systemctl stop postgresql
           sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
           sudo apt install postgresql-$POSTGRESQL
+          sudo pg_dropcluster $POSTGRESQL main --stop || true
           sudo pg_createcluster $POSTGRESQL main
           sudo sed -i -e 's|5433|5432|' /etc/postgresql/$POSTGRESQL/main/postgresql.conf
           sudo sed -i -e '/^local/ s|peer|trust|' /etc/postgresql/$POSTGRESQL/main/pg_hba.conf
@@ -95,6 +96,7 @@ jobs:
           sudo systemctl stop postgresql
           sudo /usr/share/postgresql-common/pgdg/apt.postgresql.org.sh -y
           sudo apt install postgresql-$POSTGRESQL
+          sudo pg_dropcluster $POSTGRESQL main --stop || true
           sudo pg_createcluster $POSTGRESQL main
           sudo sed -i -e 's|5433|5432|' /etc/postgresql/$POSTGRESQL/main/postgresql.conf
           sudo sed -i -e '/^local/ s|peer|trust|' /etc/postgresql/$POSTGRESQL/main/pg_hba.conf
