@@ -8,6 +8,6 @@ rust-version.workspace = true
 workspace = true
 
 [dependencies]
-indoc = "2.0.7"
+indoc = "2.0.8"
 sqlx = { version = "0.9.0", default-features = false, features = ["macros", "migrate", "postgres", "time"] }
-time = "0.3.53"
+time = "0.3.55"
