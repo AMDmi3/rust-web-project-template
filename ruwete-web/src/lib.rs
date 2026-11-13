@@ -1,8 +1,6 @@
 // SPDX-FileCopyrightText: Copyright 2026 Dmitry Marakasov <amdmi3@amdmi3.ru>
 // SPDX-License-Identifier: Apache-2.0 OR MIT
 
-#![cfg_attr(test, feature(coverage_attribute))]
-
 pub mod config;
 mod handlers;
 mod middleware;
